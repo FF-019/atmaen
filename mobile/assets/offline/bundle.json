@@ -1,0 +1,865 @@
+{
+ "version": "a2174fe3c484",
+ "emergency_number": "997",
+ "medical_line": "937",
+ "universal_do_not": [
+  "لا تحاول إجبار الطفل على التقيؤ",
+  "لا تعطِه ماء وملح أو فحم منشط أو أي علاج منزلي دون استشارة",
+  "لا تنتظر ظهور الأعراض إذا كانت المادة خطرة"
+ ],
+ "red_flags": [
+  "صعوبة أو تغير في التنفس",
+  "فقدان الوعي أو صعوبة إيقاظه",
+  "تشنجات",
+  "حروق أو تورم في الفم أو سيلان لعاب شديد",
+  "قيء متكرر أو قيء به دم"
+ ],
+ "first_steps": [
+  "أبعد المادة عن الطفل وأخرج أي بقايا من فمه بإصبعك برفق",
+  "احتفظ بالعبوة معك، ستحتاجها عند الاتصال أو في المستشفى"
+ ],
+ "disclaimer": "هذه إرشادات إسعاف أولي مؤقتة إلى حين الوصول للمساعدة الطبية ولا تغني عن الطبيب. في حال الشك اتصل بالإسعاف 997.",
+ "protocols": {
+  "corrosive": {
+   "headline": "مادة كاوية - قد تسبب حروقاً في الفم والمريء",
+   "severity": "high",
+   "steps": [
+    {
+     "text": "اغسل فم الطفل بالماء واجعله يبصق، لا تجعله يبلع ماء المضمضة",
+     "icon": "water"
+    },
+    {
+     "text": "إذا كان واعياً ويبلع بشكل طبيعي أعطه رشفات قليلة من الماء فقط",
+     "icon": "cup"
+    },
+    {
+     "text": "اغسل أي جلد أو ملابس لامستها المادة بماء جارٍ لمدة 15 دقيقة",
+     "icon": "shower"
+    },
+    {
+     "text": "اتصل بالإسعاف 997 حتى لو بدا الطفل بخير",
+     "icon": "phone"
+    }
+   ],
+   "do_not": [
+    "لا تعطِه حليباً أو عصيراً أو أي مادة لمعادلة الحمض أو القلوي"
+   ],
+   "watch_for": [
+    "سيلان اللعاب",
+    "رفض البلع",
+    "ألم في الصدر أو البطن"
+   ]
+  },
+  "hydrocarbon": {
+   "headline": "مشتقات نفطية - الخطر الأكبر وصولها للرئة",
+   "severity": "high",
+   "steps": [
+    {
+     "text": "اجعل الطفل جالساً ومنتصباً ولا تعطه أي شيء عن طريق الفم",
+     "icon": "sit"
+    },
+    {
+     "text": "انزع الملابس الملوثة واغسل الجلد بالماء والصابون",
+     "icon": "shower"
+    },
+    {
+     "text": "راقب تنفسه جيداً لمدة 6 ساعات على الأقل",
+     "icon": "lungs"
+    },
+    {
+     "text": "اتصل بالإسعاف 997 فوراً إذا سعل أو اختنق أو تغير لونه",
+     "icon": "phone"
+    }
+   ],
+   "do_not": [
+    "لا تحاول إخراج المادة بالتقيؤ إطلاقاً، هذا يدخلها للرئة"
+   ],
+   "watch_for": [
+    "سعال مستمر",
+    "تنفس سريع",
+    "ازرقاق الشفاه",
+    "حرارة"
+   ]
+  },
+  "detergent_pod": {
+   "headline": "كبسولات غسيل مركزة - أخطر من المنظفات العادية",
+   "severity": "high",
+   "steps": [
+    {
+     "text": "اغسل الفم بالماء واجعله يبصق",
+     "icon": "water"
+    },
+    {
+     "text": "إذا وصلت للعين اغسلها بماء جارٍ 15 دقيقة",
+     "icon": "eye"
+    },
+    {
+     "text": "راقب التنفس والقيء والنعاس",
+     "icon": "lungs"
+    },
+    {
+     "text": "تواصل مع 937 أو استشر متطوعاً طبياً الآن، و997 إذا ظهرت أعراض",
+     "icon": "phone"
+    }
+   ],
+   "do_not": [],
+   "watch_for": [
+    "قيء متكرر",
+    "نعاس",
+    "سعال أو صفير"
+   ]
+  },
+  "detergent_mild": {
+   "headline": "منظف خفيف - غالباً تسبب أعراضاً بسيطة",
+   "severity": "low",
+   "steps": [
+    {
+     "text": "امسح الفم واغسله بالماء",
+     "icon": "water"
+    },
+    {
+     "text": "أعطِه رشفات قليلة من الماء",
+     "icon": "cup"
+    },
+    {
+     "text": "قد يحدث غثيان أو قيء خفيف، هذا متوقع ويزول",
+     "icon": "info"
+    },
+    {
+     "text": "استشر متطوعاً طبياً إذا استمرت الأعراض أكثر من ساعة",
+     "icon": "chat"
+    }
+   ],
+   "do_not": [],
+   "watch_for": [
+    "قيء أكثر من مرتين",
+    "سعال"
+   ]
+  },
+  "button_battery": {
+   "headline": "بطارية زر - حالة طارئة حتى لو لا توجد أعراض",
+   "severity": "critical",
+   "steps": [
+    {
+     "text": "توجه لأقرب طوارئ فوراً أو اتصل 997، البطارية قد تحرق المريء خلال ساعتين",
+     "icon": "hospital"
+    },
+    {
+     "text": "لا تعطه طعاماً، ولا تجعله يتقيأ",
+     "icon": "no-food"
+    },
+    {
+     "text": "احتفظ بعبوة البطارية أو بطارية مشابهة لمعرفة المقاس",
+     "icon": "package"
+    }
+   ],
+   "do_not": [],
+   "watch_for": [
+    "سيلان لعاب",
+    "رفض الأكل",
+    "ألم في الصدر",
+    "قيء"
+   ]
+  },
+  "magnet": {
+   "headline": "مغناطيس صغير - خطر إذا بلع أكثر من قطعة",
+   "severity": "critical",
+   "steps": [
+    {
+     "text": "توجه للطوارئ فوراً، المغناطيس قد يلتصق عبر جدار الأمعاء",
+     "icon": "hospital"
+    },
+    {
+     "text": "لا تعطه طعاماً أو شراباً",
+     "icon": "no-food"
+    },
+    {
+     "text": "أحضر معك قطعاً مشابهة إن وجدت",
+     "icon": "package"
+    }
+   ],
+   "do_not": [],
+   "watch_for": [
+    "ألم في البطن",
+    "قيء",
+    "انتفاخ"
+   ]
+  },
+  "medication": {
+   "headline": "دواء - الخطورة تعتمد على النوع والكمية ووزن الطفل",
+   "severity": "high",
+   "steps": [
+    {
+     "text": "قدّر عدد الحبوب أو كمية الشراب الناقصة قدر الإمكان",
+     "icon": "count"
+    },
+    {
+     "text": "اكتب وقت البلع تقريباً",
+     "icon": "clock"
+    },
+    {
+     "text": "اتصل بـ 937 أو استشر متطوعاً طبياً الآن ومعك العبوة ووزن الطفل",
+     "icon": "phone"
+    },
+    {
+     "text": "إذا ظهر نعاس شديد أو صعوبة تنفس اتصل 997",
+     "icon": "phone"
+    }
+   ],
+   "do_not": [
+    "لا تنتظر ظهور الأعراض، بعض الأدوية مثل الباراسيتامول والحديد تتأخر أعراضها"
+   ],
+   "watch_for": [
+    "نعاس",
+    "قيء",
+    "تعرق",
+    "تغير ضربات القلب"
+   ]
+  },
+  "pesticide": {
+   "headline": "مبيد حشري أو قوارض - قد يكون شديد السمية",
+   "severity": "critical",
+   "steps": [
+    {
+     "text": "اتصل بالإسعاف 997 الآن",
+     "icon": "phone"
+    },
+    {
+     "text": "انزع الملابس الملوثة واغسل الجلد بالماء والصابون مع حماية يديك",
+     "icon": "shower"
+    },
+    {
+     "text": "انقل الطفل لمكان جيد التهوية",
+     "icon": "wind"
+    },
+    {
+     "text": "إذا فقد الوعي ويتنفس، ضعه على جنبه (وضعية الإفاقة)",
+     "icon": "recovery"
+    }
+   ],
+   "do_not": [],
+   "watch_for": [
+    "تعرق ولعاب زائد",
+    "تشنجات",
+    "ضيق تنفس",
+    "نزيف (سم الفئران)"
+   ]
+  },
+  "alcohol": {
+   "headline": "مادة كحولية (معقم، عطر، غسول فم)",
+   "severity": "moderate",
+   "steps": [
+    {
+     "text": "امسح الفم وأبعد العبوة",
+     "icon": "hand"
+    },
+    {
+     "text": "الأطفال الصغار معرضون لانخفاض السكر، راقب النعاس والتعرق",
+     "icon": "eye"
+    },
+    {
+     "text": "استشر 937 أو متطوعاً طبياً خاصة إذا الكمية أكثر من رشفة",
+     "icon": "chat"
+    }
+   ],
+   "do_not": [],
+   "watch_for": [
+    "نعاس",
+    "ترنح",
+    "تعرق بارد",
+    "قيء"
+   ]
+  },
+  "essential_oil": {
+   "headline": "زيوت عطرية (كافور، أوكالبتوس، نعناع) - خطرة على الصغار",
+   "severity": "high",
+   "steps": [
+    {
+     "text": "لا تعطه شيئاً عن طريق الفم",
+     "icon": "no-food"
+    },
+    {
+     "text": "راقب أي تشنج أو سعال",
+     "icon": "eye"
+    },
+    {
+     "text": "اتصل بـ 937 أو 997، كمية صغيرة قد تسبب تشنجات",
+     "icon": "phone"
+    }
+   ],
+   "do_not": [],
+   "watch_for": [
+    "تشنجات",
+    "سعال",
+    "نعاس"
+   ]
+  },
+  "low_toxicity": {
+   "headline": "مادة منخفضة السمية غالباً",
+   "severity": "low",
+   "steps": [
+    {
+     "text": "امسح الفم وأعطه رشفات من الماء",
+     "icon": "water"
+    },
+    {
+     "text": "راقبه لمدة ساعة",
+     "icon": "clock"
+    },
+    {
+     "text": "استشر متطوعاً إذا لاحظت أي شيء غير طبيعي",
+     "icon": "chat"
+    }
+   ],
+   "do_not": [],
+   "watch_for": [
+    "قيء متكرر",
+    "طفح جلدي"
+   ]
+  },
+  "unknown": {
+   "headline": "لم نتعرف على المادة بدقة - تعامل معها كأنها خطرة",
+   "severity": "high",
+   "steps": [
+    {
+     "text": "لا تعطه شيئاً عن طريق الفم حتى تستشير",
+     "icon": "no-food"
+    },
+    {
+     "text": "صوّر العبوة أو اكتب اسمها كما هو مكتوب",
+     "icon": "camera"
+    },
+    {
+     "text": "تواصل مع متطوع طبي أو 937 الآن",
+     "icon": "chat"
+    },
+    {
+     "text": "اتصل 997 فوراً عند ظهور أي علامة خطر",
+     "icon": "phone"
+    }
+   ],
+   "do_not": [],
+   "watch_for": [
+    "صعوبة أو تغير في التنفس",
+    "فقدان الوعي أو صعوبة إيقاظه",
+    "تشنجات",
+    "حروق أو تورم في الفم أو سيلان لعاب شديد",
+    "قيء متكرر أو قيء به دم"
+   ]
+  }
+ },
+ "chemicals": [
+  {
+   "id": 1,
+   "name_ar": "كلور / مبيض",
+   "name_en": "Bleach (sodium hypochlorite)",
+   "aliases": "كلوركس,كلوروكس,مبيض ملابس,ماء جافيل,chlorine,clorox,bleach,هايبوكلوريت",
+   "category": "corrosive",
+   "hazard_level": "high"
+  },
+  {
+   "id": 2,
+   "name_ar": "منظف مجاري / صودا كاوية",
+   "name_en": "Drain cleaner (sodium hydroxide)",
+   "aliases": "فتاح مجاري,صودا كاوية,بودرة المجاري,drain opener,caustic soda,lye,هيدروكسيد الصوديوم",
+   "category": "corrosive",
+   "hazard_level": "critical"
+  },
+  {
+   "id": 3,
+   "name_ar": "منظف أفران",
+   "name_en": "Oven cleaner",
+   "aliases": "منظف الفرن,سبراي الفرن,oven spray,degreaser oven",
+   "category": "corrosive",
+   "hazard_level": "critical"
+  },
+  {
+   "id": 4,
+   "name_ar": "منظف حمامات حمضي",
+   "name_en": "Toilet bowl cleaner (acid)",
+   "aliases": "منظف المراحيض,منظف التواليت,ملح الليمون,هيدروكلوريك,toilet cleaner,muriatic acid,مويه نار",
+   "category": "corrosive",
+   "hazard_level": "high"
+  },
+  {
+   "id": 5,
+   "name_ar": "منظف غسالة الصحون",
+   "name_en": "Dishwasher detergent",
+   "aliases": "حبوب غسالة الصحون,مسحوق غسالة الصحون,dishwasher tablet,dishwasher powder",
+   "category": "corrosive",
+   "hazard_level": "moderate"
+  },
+  {
+   "id": 6,
+   "name_ar": "كبسولات غسيل الملابس",
+   "name_en": "Laundry detergent pods",
+   "aliases": "كبسولات الغسيل,بودز,حبوب الغسيل,laundry pods,liquid capsules,capsule",
+   "category": "detergent_pod",
+   "hazard_level": "high"
+  },
+  {
+   "id": 7,
+   "name_ar": "سائل غسيل الصحون",
+   "name_en": "Dish soap",
+   "aliases": "صابون مواعين,سائل جلي,فيري,dish liquid,washing up liquid",
+   "category": "detergent_mild",
+   "hazard_level": "low"
+  },
+  {
+   "id": 8,
+   "name_ar": "صابون يدين أو شامبو",
+   "name_en": "Hand soap / shampoo",
+   "aliases": "صابون سائل,شامبو,شاور جل,shampoo,body wash,hand wash",
+   "category": "detergent_mild",
+   "hazard_level": "low"
+  },
+  {
+   "id": 9,
+   "name_ar": "مسحوق غسيل",
+   "name_en": "Laundry powder",
+   "aliases": "تايد,بودرة غسيل,مسحوق الغسيل,washing powder",
+   "category": "detergent_mild",
+   "hazard_level": "moderate"
+  },
+  {
+   "id": 10,
+   "name_ar": "منعم ملابس",
+   "name_en": "Fabric softener",
+   "aliases": "منعم,معطر ملابس,softener",
+   "category": "detergent_mild",
+   "hazard_level": "low"
+  },
+  {
+   "id": 11,
+   "name_ar": "كيروسين / جاز",
+   "name_en": "Kerosene",
+   "aliases": "جاز,قاز,كاز,زيت فانوس,kerosene,paraffin oil",
+   "category": "hydrocarbon",
+   "hazard_level": "high"
+  },
+  {
+   "id": 12,
+   "name_ar": "بنزين",
+   "name_en": "Gasoline / petrol",
+   "aliases": "بانزين,وقود,gas,petrol,benzine",
+   "category": "hydrocarbon",
+   "hazard_level": "high"
+  },
+  {
+   "id": 13,
+   "name_ar": "تنر / مخفف دهان",
+   "name_en": "Paint thinner",
+   "aliases": "تنر,ثنر,تربنتين,ترابنتين,thinner,turpentine,white spirit",
+   "category": "hydrocarbon",
+   "hazard_level": "high"
+  },
+  {
+   "id": 14,
+   "name_ar": "زيت قناديل / سائل ولاعة",
+   "name_en": "Lamp oil / lighter fluid",
+   "aliases": "سائل الولاعات,زيت السراج,lighter fluid,lamp oil",
+   "category": "hydrocarbon",
+   "hazard_level": "high"
+  },
+  {
+   "id": 15,
+   "name_ar": "ملمع أثاث",
+   "name_en": "Furniture polish",
+   "aliases": "ملمع خشب,بخاخ الأثاث,furniture polish,pledge",
+   "category": "hydrocarbon",
+   "hazard_level": "moderate"
+  },
+  {
+   "id": 16,
+   "name_ar": "بطارية زر / بطارية ساعة",
+   "name_en": "Button battery",
+   "aliases": "بطارية ساعة,بطارية صغيرة,بطارية ريموت,بطاريه,cr2032,lr44,coin battery,button cell",
+   "category": "button_battery",
+   "hazard_level": "critical"
+  },
+  {
+   "id": 17,
+   "name_ar": "مغناطيس صغير",
+   "name_en": "Small magnets",
+   "aliases": "مغناطيس,مغناطيسات,كرات مغناطيس,magnet,magnetic balls",
+   "category": "magnet",
+   "hazard_level": "critical"
+  },
+  {
+   "id": 18,
+   "name_ar": "باراسيتامول",
+   "name_en": "Paracetamol (acetaminophen)",
+   "aliases": "بنادول,فيفادول,ادول,باندول,خافض حرارة,panadol,tylenol,acetaminophen,paracetamol",
+   "category": "medication",
+   "hazard_level": "high"
+  },
+  {
+   "id": 19,
+   "name_ar": "ايبوبروفين",
+   "name_en": "Ibuprofen",
+   "aliases": "بروفين,نوروفين,brufen,advil,nurofen",
+   "category": "medication",
+   "hazard_level": "moderate"
+  },
+  {
+   "id": 20,
+   "name_ar": "حبوب حديد",
+   "name_en": "Iron supplements",
+   "aliases": "حديد,فيروجلوبين,مكمل حديد,فيتامينات الحامل,iron,ferrous sulfate",
+   "category": "medication",
+   "hazard_level": "critical"
+  },
+  {
+   "id": 21,
+   "name_ar": "شراب كحة أو حساسية",
+   "name_en": "Antihistamine / cough syrup",
+   "aliases": "شراب كحه,شراب الحساسية,مضاد هيستامين,cough syrup,antihistamine",
+   "category": "medication",
+   "hazard_level": "moderate"
+  },
+  {
+   "id": 22,
+   "name_ar": "أدوية سكر أو ضغط",
+   "name_en": "Diabetes / blood pressure pills",
+   "aliases": "حبوب السكر,حبوب الضغط,ميتفورمين,أملوديبين,metformin,amlodipine",
+   "category": "medication",
+   "hazard_level": "critical"
+  },
+  {
+   "id": 23,
+   "name_ar": "مبيد حشرات بخاخ",
+   "name_en": "Insecticide spray",
+   "aliases": "بف باف,رذاذ الحشرات,مبيد صراصير,مبيد,insect spray,bug spray,raid",
+   "category": "pesticide",
+   "hazard_level": "high"
+  },
+  {
+   "id": 24,
+   "name_ar": "سم فئران",
+   "name_en": "Rat poison",
+   "aliases": "سم الفيران,مبيد قوارض,rat poison,rodenticide",
+   "category": "pesticide",
+   "hazard_level": "critical"
+  },
+  {
+   "id": 25,
+   "name_ar": "مبيد زراعي",
+   "name_en": "Organophosphate pesticide",
+   "aliases": "مبيد مزارع,مبيد نخيل,organophosphate,malathion",
+   "category": "pesticide",
+   "hazard_level": "critical"
+  },
+  {
+   "id": 26,
+   "name_ar": "معقم يدين",
+   "name_en": "Hand sanitizer",
+   "aliases": "معقم,جل معقم,ديتول جل,sanitizer,alcohol gel",
+   "category": "alcohol",
+   "hazard_level": "moderate"
+  },
+  {
+   "id": 27,
+   "name_ar": "عطر / كولونيا",
+   "name_en": "Perfume / cologne",
+   "aliases": "برفان,كولونيا,بخاخ عطر,perfume,cologne,body spray",
+   "category": "alcohol",
+   "hazard_level": "moderate"
+  },
+  {
+   "id": 28,
+   "name_ar": "غسول فم",
+   "name_en": "Mouthwash",
+   "aliases": "مضمضة,ليسترين,mouthwash",
+   "category": "alcohol",
+   "hazard_level": "moderate"
+  },
+  {
+   "id": 29,
+   "name_ar": "كافور / فيكس",
+   "name_en": "Camphor / vapor rub",
+   "aliases": "كافور,فكس,مرهم الصدر,vicks,camphor,vapor rub",
+   "category": "essential_oil",
+   "hazard_level": "high"
+  },
+  {
+   "id": 30,
+   "name_ar": "زيت أوكالبتوس / زيوت عطرية",
+   "name_en": "Eucalyptus / essential oils",
+   "aliases": "زيت الكينا,زيت النعناع,زيت عطري,eucalyptus oil,essential oil,tea tree",
+   "category": "essential_oil",
+   "hazard_level": "high"
+  },
+  {
+   "id": 31,
+   "name_ar": "معجون أسنان",
+   "name_en": "Toothpaste",
+   "aliases": "معجون,toothpaste",
+   "category": "low_toxicity",
+   "hazard_level": "low"
+  },
+  {
+   "id": 32,
+   "name_ar": "أكياس السيليكا",
+   "name_en": "Silica gel packet",
+   "aliases": "سيليكا,كيس الرطوبة,do not eat,silica gel",
+   "category": "low_toxicity",
+   "hazard_level": "low"
+  },
+  {
+   "id": 33,
+   "name_ar": "ألوان شمع / طباشير",
+   "name_en": "Crayons / chalk",
+   "aliases": "ألوان,طباشير,crayon,chalk",
+   "category": "low_toxicity",
+   "hazard_level": "low"
+  },
+  {
+   "id": 34,
+   "name_ar": "روج / مكياج",
+   "name_en": "Lipstick / makeup",
+   "aliases": "أحمر شفاه,روج,مكياج,lipstick,makeup",
+   "category": "low_toxicity",
+   "hazard_level": "low"
+  },
+  {
+   "id": 35,
+   "name_ar": "مزيل طلاء الأظافر / أسيتون",
+   "name_en": "Nail polish remover (acetone)",
+   "aliases": "أسيتون,اسيتون,مزيل مناكير,acetone,nail polish remover",
+   "category": "hydrocarbon",
+   "hazard_level": "moderate"
+  },
+  {
+   "id": 36,
+   "name_ar": "منظف زجاج",
+   "name_en": "Glass cleaner",
+   "aliases": "منظف المرايا,ويندكس,glass cleaner,windex",
+   "category": "detergent_mild",
+   "hazard_level": "low"
+  }
+ ],
+ "products": [
+  {
+   "barcode": "2000010000005",
+   "chemical_id": 1
+  },
+  {
+   "barcode": "2000010000012",
+   "chemical_id": 1
+  },
+  {
+   "barcode": "2000020000002",
+   "chemical_id": 2
+  },
+  {
+   "barcode": "2000020000019",
+   "chemical_id": 2
+  },
+  {
+   "barcode": "2000030000009",
+   "chemical_id": 3
+  },
+  {
+   "barcode": "2000040000006",
+   "chemical_id": 4
+  },
+  {
+   "barcode": "2000040000013",
+   "chemical_id": 4
+  },
+  {
+   "barcode": "2000050000003",
+   "chemical_id": 5
+  },
+  {
+   "barcode": "2000060000000",
+   "chemical_id": 6
+  },
+  {
+   "barcode": "2000070000007",
+   "chemical_id": 7
+  },
+  {
+   "barcode": "2000070000014",
+   "chemical_id": 7
+  },
+  {
+   "barcode": "2000080000004",
+   "chemical_id": 8
+  },
+  {
+   "barcode": "2000080000011",
+   "chemical_id": 8
+  },
+  {
+   "barcode": "2000090000001",
+   "chemical_id": 9
+  },
+  {
+   "barcode": "2000100000007",
+   "chemical_id": 10
+  },
+  {
+   "barcode": "2000110000004",
+   "chemical_id": 11
+  },
+  {
+   "barcode": "2000130000008",
+   "chemical_id": 13
+  },
+  {
+   "barcode": "2000150000002",
+   "chemical_id": 15
+  },
+  {
+   "barcode": "2000160000009",
+   "chemical_id": 16
+  },
+  {
+   "barcode": "2000180000003",
+   "chemical_id": 18
+  },
+  {
+   "barcode": "2000180000010",
+   "chemical_id": 18
+  },
+  {
+   "barcode": "2000190000000",
+   "chemical_id": 19
+  },
+  {
+   "barcode": "2000200000006",
+   "chemical_id": 20
+  },
+  {
+   "barcode": "2000210000003",
+   "chemical_id": 21
+  },
+  {
+   "barcode": "2000230000007",
+   "chemical_id": 23
+  },
+  {
+   "barcode": "2000240000004",
+   "chemical_id": 24
+  },
+  {
+   "barcode": "2000260000008",
+   "chemical_id": 26
+  },
+  {
+   "barcode": "2000270000005",
+   "chemical_id": 27
+  },
+  {
+   "barcode": "2000280000002",
+   "chemical_id": 28
+  },
+  {
+   "barcode": "2000290000009",
+   "chemical_id": 29
+  },
+  {
+   "barcode": "2000300000005",
+   "chemical_id": 30
+  },
+  {
+   "barcode": "2000310000002",
+   "chemical_id": 31
+  },
+  {
+   "barcode": "2000350000000",
+   "chemical_id": 35
+  },
+  {
+   "barcode": "2000360000007",
+   "chemical_id": 36
+  }
+ ],
+ "library": [
+  {
+   "slug": "ingestion-first-minutes",
+   "title_ar": "أول 5 دقائق بعد بلع مادة كيميائية",
+   "category": "ingestion",
+   "summary_ar": "ماذا تفعل ولا تفعل قبل أي شيء آخر",
+   "content_ar": "أبعد المادة عن الطفل وأخرج ما تبقى في فمه\nلا تجبره على التقيؤ\nاحتفظ بالعبوة\nإذا كان فاقد الوعي أو لا يتنفس جيداً اتصل 997 فوراً\nإذا كان بخير، افتح أطمئن واكتب اسم المادة أو امسح الباركود"
+  },
+  {
+   "slug": "why-not-vomit",
+   "title_ar": "لماذا لا نجعل الطفل يتقيأ؟",
+   "category": "ingestion",
+   "summary_ar": "عادة منتشرة لكنها قد تزيد الضرر",
+   "content_ar": "المواد الكاوية تحرق المريء مرة ثانية وهي خارجة\nالمواد النفطية قد تدخل الرئة أثناء التقيؤ وتسبب التهاباً خطيراً\nالماء والملح قد يسبب ارتفاعاً خطيراً في الصوديوم عند الأطفال\nالطبيب فقط يقرر إن كان هناك حاجة لإخراج المادة"
+  },
+  {
+   "slug": "button-batteries",
+   "title_ar": "بطاريات الزر: خطر صغير جداً",
+   "category": "ingestion",
+   "summary_ar": "لماذا تعتبر حالة طارئة حتى بدون أعراض",
+   "content_ar": "البطارية تولد تياراً كهربائياً عند ملامسة الرطوبة وقد تحرق المريء خلال ساعتين\nلا تنتظر الأعراض، توجه للطوارئ\nابحث في المنزل عن الأجهزة التي فيها بطاريات زر: الريموت، الميزان، الألعاب المضيئة، مفاتيح السيارة\nتأكد أن أغطية البطاريات مثبتة بمسمار"
+  },
+  {
+   "slug": "medicine-safety",
+   "title_ar": "تخزين الأدوية بأمان",
+   "category": "prevention",
+   "summary_ar": "معظم حالات تسمم الأطفال بالأدوية تحدث من أدوية الكبار",
+   "content_ar": "خزّن الأدوية في مكان مرتفع ومغلق\nلا تقل للطفل إن الدواء حلوى\nأغلق العبوة جيداً بعد كل استخدام حتى لو ستستخدمه بعد قليل\nانتبه لحقائب الزوار والأجداد\nتخلص من الأدوية المنتهية بطريقة آمنة"
+  },
+  {
+   "slug": "cleaning-products-storage",
+   "title_ar": "المنظفات في المطبخ والحمام",
+   "category": "prevention",
+   "summary_ar": "خطوات بسيطة تمنع أغلب الحوادث",
+   "content_ar": "لا تنقل المنظفات لعلب ماء أو عصير أبداً\nاستخدم أقفال الخزائن تحت المغسلة\nأعد المنظف لمكانه فور الانتهاء\nكبسولات الغسيل تبدو مثل الحلوى، ضعها في مكان مرتفع\nلا تخلط المنظفات مع بعض، الكلور مع الحمض يطلق غازاً ساماً"
+  },
+  {
+   "slug": "childproof-checklist",
+   "title_ar": "قائمة فحص سلامة المنزل",
+   "category": "prevention",
+   "summary_ar": "مر على البيت غرفة غرفة",
+   "content_ar": "المطبخ: المنظفات مقفلة، السكاكين بعيدة\nالحمام: الأدوية ومستحضرات التجميل مرتفعة\nغرفة النوم: حقائب اليد والعطور بعيدة\nالمجلس: البخور والفحم والولاعات بعيدة\nالحوش والمخزن: المبيدات والجاز في علبها الأصلية ومقفلة"
+  },
+  {
+   "slug": "choking-infant",
+   "title_ar": "الاختناق عند الرضيع (أقل من سنة)",
+   "category": "choking",
+   "summary_ar": "ضربات الظهر وضغطات الصدر",
+   "content_ar": "إذا كان يبكي أو يسعل بقوة دعه يسعل وراقبه\nإذا لا يستطيع البكاء أو التنفس: ضعه على ساعدك ووجهه للأسفل\nأعطه 5 ضربات بين لوحي الكتف بكعب اليد\nاقلبه على ظهره وأعطه 5 ضغطات على منتصف الصدر بإصبعين\nكرر حتى يخرج الجسم أو يفقد الوعي\nاتصل 997 مبكراً، أو اجعل أحداً يتصل"
+  },
+  {
+   "slug": "choking-child",
+   "title_ar": "الاختناق عند الطفل (أكبر من سنة)",
+   "category": "choking",
+   "summary_ar": "ضربات الظهر ثم ضغطات البطن",
+   "content_ar": "شجعه على السعال إذا كان يستطيع\nإذا لا يستطيع: أعطه 5 ضربات على الظهر وهو منحنٍ للأمام\nثم 5 ضغطات على البطن (مناورة هيمليك)\nكرر وتابع حتى يخرج الجسم\nإذا فقد الوعي اتصل 997 وابدأ الإنعاش"
+  },
+  {
+   "slug": "burns",
+   "title_ar": "الحروق",
+   "category": "burns",
+   "summary_ar": "ماء جارٍ لمدة 20 دقيقة",
+   "content_ar": "ضع الحرق تحت ماء جارٍ فاتر (ليس مثلج) لمدة 20 دقيقة\nانزع الملابس والإكسسوارات القريبة إلا إذا كانت ملتصقة\nغطِّه بغلاف بلاستيكي نظيف أو قماش نظيف\nلا تضع معجون أسنان أو زبدة أو ثلج\nراجع الطوارئ إذا الحرق في الوجه أو اليدين أو أكبر من كف الطفل"
+  },
+  {
+   "slug": "chemical-on-skin-eyes",
+   "title_ar": "مادة كيميائية على الجلد أو في العين",
+   "category": "burns",
+   "summary_ar": "الغسل بالماء هو الأهم",
+   "content_ar": "انزع الملابس الملوثة واحمِ يديك\nاغسل الجلد بماء جارٍ لمدة 15 إلى 20 دقيقة\nللعين: افتح الجفن واغسلها بماء جارٍ من الداخل للخارج 15 دقيقة\nلا تستخدم أي مادة لمعادلة الحمض أو القلوي\nراجع الطوارئ بعد الغسل خاصة للعين"
+  },
+  {
+   "slug": "bleeding",
+   "title_ar": "النزيف",
+   "category": "bleeding",
+   "summary_ar": "الضغط المباشر",
+   "content_ar": "اضغط على الجرح مباشرة بقطعة قماش نظيفة\nلا ترفع القماش لتتأكد، أضف فوقه إذا تشرب الدم\nارفع الجزء المصاب فوق مستوى القلب إن أمكن\nاتصل 997 إذا كان النزيف لا يتوقف بعد 10 دقائق ضغط أو الجرح عميق"
+  },
+  {
+   "slug": "recovery-position",
+   "title_ar": "وضعية الإفاقة",
+   "category": "general",
+   "summary_ar": "للطفل الفاقد للوعي الذي يتنفس",
+   "content_ar": "تأكد أنه يتنفس\nضعه على جنبه\nاثنِ ركبته العلوية لتثبيته\nأمل رأسه قليلاً للخلف ليبقى مجرى الهواء مفتوحاً\nابقَ معه وراقب تنفسه حتى يصل الإسعاف"
+  }
+ ]
+}

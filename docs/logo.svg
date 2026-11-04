@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- lower-left arm: light aqua -->
+  <path d="M46 52H24a12 12 0 0 0 0 24h22v22a12 12 0 0 0 24 0V76" stroke="#88CCD2" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- upper-right arm: brand blue -->
+  <path d="M46 52V26a12 12 0 0 1 24 0v26h22a12 12 0 0 1 0 24H70" stroke="#1290B2" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- stethoscope -->
+  <path d="M30 34c0 14 8 22 18 22s16-6 20 2 8 14 16 14" stroke="#0B5E75" stroke-width="3.2" stroke-linecap="round"/>
+  <circle cx="30" cy="31" r="4" fill="#0B5E75"/>
+  <circle cx="88" cy="72" r="5.5" fill="#fff" stroke="#0B5E75" stroke-width="3.2"/>
+</svg>

@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Atma'en: a smart first aid guide for child chemical ingestion. Flutter, FastAPI, AI.">
+<meta property="og:title" content="Atma'en - Smart First Aid Guide">
+<meta property="og:description" content="First aid guidance for the minutes between a child swallowing something dangerous and help arriving.">
+<meta property="og:image" content="screenshots/m-guidance.webp">
+<link rel="icon" href="logo.svg">
+<title>Atma'en</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a field manual for the first five minutes. Each section is pinned to a
+   point on the incident clock (00:00 swallowed -> help arrives), shown in a mono
+   margin column. Clinical cool white, ink teal, aqua from the logo; red only for "call now". */
+:root {
+  --ground: #f3f7f7;
+  --surface: #ffffff;
+  --ink: #0d2b33;
+  --ink-2: #48636a;
+  --ink-3: #7f9599;
+  --rule: #d5e2e3;
+  --brand: #1290b2;
+  --brand-deep: #0b5e75;
+  --aqua: #88ccd2;
+  --mist: #e3f1f2;
+  --signal: #e2483d;
+  --signal-soft: #fbe6e4;
+  --amber: #c98316;
+  --amber-soft: #fbefd9;
+  --orange: #c95a22;
+  --orange-soft: #fae6da;
+  --calm: #2f8a5f;
+  --calm-soft: #e1f1e8;
+  --phone: #0d2b33;
+  --app: #f6f3ee;
+
+  --display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --body: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --arabic: "IBM Plex Sans Arabic", "Geeza Pro", Tahoma, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #08191e; --surface: #0f262d; --ink: #e4f0f1; --ink-2: #a3bcc0; --ink-3: #6f8b90;
+    --rule: #1f3a42; --brand: #3fb3d1; --brand-deep: #88ccd2; --aqua: #88ccd2; --mist: #12333b;
+    --signal: #f0645a; --signal-soft: #3a1c1b; --amber: #e8b04f; --amber-soft: #33270f;
+    --orange: #ec8550; --orange-soft: #36200f; --calm: #5cc48f; --calm-soft: #10301f;
+    --phone: #02090b; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #08191e; --surface: #0f262d; --ink: #e4f0f1; --ink-2: #a3bcc0; --ink-3: #6f8b90;
+  --rule: #1f3a42; --brand: #3fb3d1; --brand-deep: #88ccd2; --aqua: #88ccd2; --mist: #12333b;
+  --signal: #f0645a; --signal-soft: #3a1c1b; --amber: #e8b04f; --amber-soft: #33270f;
+  --orange: #ec8550; --orange-soft: #36200f; --calm: #5cc48f; --calm-soft: #10301f;
+  --phone: #02090b; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+.ar { font-family: var(--arabic); direction: rtl; }
+a { color: var(--brand); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+/* top bar */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+.top .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.2px; }
+.top .mark svg { width: 30px; height: 30px; }
+.top nav { display: flex; gap: 22px; font-size: 14.5px; }
+.top nav a { color: var(--ink-2); text-decoration: none; }
+.top nav a:hover { color: var(--ink); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: 56px; align-items: center; padding-block: 36px 72px; }
+.eyebrow { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+.hero h1 { font-size: clamp(56px, 8.4vw, 108px); line-height: 0.92; letter-spacing: -0.045em; font-weight: 800; margin-top: 22px; }
+.hero h1 .ar-name { display: block; font-family: var(--arabic); font-weight: 700; color: var(--brand); letter-spacing: 0; font-size: 0.62em; line-height: 1.25; margin-top: 10px; direction: rtl; text-align: left; }
+.hero .lede { font-size: clamp(19px, 2vw, 23px); line-height: 1.5; color: var(--ink-2); max-width: 30ch; margin-top: 28px; }
+.hero .lede b { color: var(--ink); font-weight: 600; }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 34px; font-size: 14.5px; color: var(--ink-2); }
+.facts span { display: inline-flex; gap: 8px; align-items: baseline; }
+.facts b { font-family: var(--mono); font-weight: 500; color: var(--ink); font-size: 13.5px; }
+
+/* the phone demo */
+.demo-col { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.phone {
+  width: 340px; max-width: 100%; aspect-ratio: 340 / 700; border-radius: 48px;
+  background: var(--phone); padding: 11px; position: relative;
+  box-shadow: 0 40px 80px -40px rgba(13, 43, 51, 0.55);
+}
+.screen {
+  width: 100%; height: 100%; border-radius: 38px; overflow: hidden; background: var(--app);
+  font-family: var(--arabic); direction: rtl; color: #0d2b33; display: flex; flex-direction: column;
+}
+.screen .sb { height: 40px; flex: none; }
+.screen .bar { display: flex; align-items: center; gap: 8px; padding: 0 18px 8px; font-weight: 700; font-size: 16px; }
+.screen .bar .back { color: #4a6168; font-size: 18px; }
+.screen .body { flex: 1; overflow-y: auto; padding: 0 16px 16px; scrollbar-width: none; }
+.screen .body::-webkit-scrollbar { display: none; }
+.search { display: flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid #1290b2; border-radius: 14px; padding: 0 12px; height: 48px; }
+.search input { border: 0; outline: 0; flex: 1; font: 500 15px var(--arabic); background: transparent; color: #0d2b33; min-width: 0; }
+.search svg { width: 18px; height: 18px; flex: none; color: #4a6168; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.chip { border: 1px solid #e3ded5; background: #fff; border-radius: 10px; padding: 5px 11px; font: 500 13px var(--arabic); color: #0d2b33; cursor: pointer; }
+.chip:hover { border-color: #88ccd2; }
+.chip.on { background: #0d2b33; border-color: #0d2b33; color: #fff; }
+.slabel { font-size: 12px; font-weight: 600; color: #4a6168; margin: 14px 0 7px; }
+.sev { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 8px; font-weight: 600; font-size: 12.5px; }
+.sev::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.sev.low { color: #2f8a5f; background: #e1f1e8; } .sev.moderate { color: #b8770f; background: #fbefd9; }
+.sev.high { color: #c95a22; background: #fae6da; } .sev.critical { color: #e2483d; background: #fbe6e4; }
+.result h4 { font-size: 15.5px; line-height: 1.5; margin: 8px 0 10px; font-weight: 700; }
+.call { display: flex; align-items: center; gap: 10px; background: #e2483d; color: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; }
+.call b { font-size: 16px; } .call small { display: block; opacity: 0.8; font-size: 11.5px; }
+.step { display: flex; gap: 10px; background: #fff; border: 1px solid #e3ded5; border-radius: 14px; padding: 10px 12px; margin-bottom: 7px; font-size: 13.5px; line-height: 1.55; }
+.step i { font-style: normal; flex: none; width: 24px; height: 24px; border-radius: 8px; background: #e6f4f5; color: #0b5e75; display: grid; place-items: center; font: 600 12px var(--mono); }
+.step.warn i { background: #e2483d; color: #fff; }
+.dont { background: #fbe6e4; border-radius: 14px; padding: 10px 12px; font-size: 13px; line-height: 1.6; margin-top: 4px; }
+.dont div::before { content: "✕  "; color: #e2483d; font-weight: 700; }
+.nomatch { color: #4a6168; font-size: 13px; margin-top: 6px; }
+.demo-note { font-size: 13px; color: var(--ink-3); text-align: center; max-width: 36ch; }
+
+/* sections with clock */
+.sec { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 32px; padding-block: 72px; border-top: 1px solid var(--rule); }
+.clock { font-family: var(--mono); color: var(--ink-3); font-size: 13px; line-height: 1.5; padding-top: 6px; }
+.clock b { display: block; font-size: 30px; font-weight: 500; color: var(--brand); letter-spacing: -0.02em; }
+.sec h2 { font-size: clamp(30px, 3.6vw, 46px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; max-width: 22ch; }
+.sec .intro { font-size: 18.5px; color: var(--ink-2); max-width: 62ch; margin-top: 18px; }
+
+.problem { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 40px; border-top: 1px solid var(--rule); }
+.problem div { padding: 22px 22px 0 0; border-right: 1px solid var(--rule); padding-right: 22px; }
+.problem div:last-child { border-right: 0; }
+.problem div + div { padding-left: 22px; }
+.problem b { display: block; font-size: 17.5px; margin-bottom: 6px; }
+.problem p { color: var(--ink-2); font-size: 15.5px; }
+
+/* inputs row */
+.inputs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 40px; }
+.input-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 18px; padding: 22px; }
+.input-card .k { font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.04em; text-transform: uppercase; }
+.input-card h3 { font-size: 21px; margin: 10px 0 8px; letter-spacing: -0.01em; }
+.input-card p { font-size: 15px; color: var(--ink-2); }
+.input-card code { font-family: var(--mono); font-size: 13px; background: var(--mist); color: var(--brand-deep); padding: 1px 6px; border-radius: 5px; }
+
+/* screens strip */
+.strip { display: flex; gap: 18px; overflow-x: auto; padding: 36px 0 18px; scroll-snap-type: x mandatory; }
+.strip figure { margin: 0; flex: none; width: 236px; scroll-snap-align: start; }
+.strip img { width: 100%; border-radius: 28px; border: 1px solid var(--rule); display: block; background: var(--surface); }
+.strip figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 10px; line-height: 1.45; }
+.strip figcaption b { color: var(--ink); display: block; font-weight: 600; }
+
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; margin-top: 40px; align-items: start; }
+.split img { width: 100%; border-radius: 22px; border: 1px solid var(--rule); display: block; }
+.feat { display: grid; gap: 22px; }
+.feat div { border-top: 1px solid var(--rule); padding-top: 16px; }
+.feat b { display: block; font-size: 17.5px; margin-bottom: 4px; }
+.feat p { color: var(--ink-2); font-size: 15.5px; }
+
+/* severity scale */
+.scale { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 36px; border-radius: 16px; overflow: hidden; border: 1px solid var(--rule); }
+.scale div { padding: 18px 18px 20px; background: var(--surface); }
+.scale div + div { border-left: 1px solid var(--rule); }
+.scale .lvl { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+.scale b { display: block; font-size: 16px; margin: 6px 0 4px; }
+.scale p { font-size: 14px; color: var(--ink-2); }
+.scale .low .lvl { color: var(--calm); } .scale .moderate .lvl { color: var(--amber); }
+.scale .high .lvl { color: var(--orange); } .scale .critical .lvl { color: var(--signal); }
+.scale div { border-top: 4px solid transparent; }
+.scale .low { border-top-color: var(--calm); } .scale .moderate { border-top-color: var(--amber); }
+.scale .high { border-top-color: var(--orange); } .scale .critical { border-top-color: var(--signal); }
+
+/* admin */
+.admin-hero { margin-top: 40px; }
+.admin-hero img { width: 100%; border-radius: 20px; border: 1px solid var(--rule); display: block; }
+.thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.thumbs figure { margin: 0; }
+.thumbs img { width: 100%; border-radius: 14px; border: 1px solid var(--rule); display: block; }
+.thumbs figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 8px; }
+
+/* architecture */
+.arch { margin-top: 40px; overflow-x: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: 20px; padding: 26px; }
+.arch svg { display: block; min-width: 760px; width: 100%; height: auto; }
+.arch text { font-family: var(--body); }
+.arch .box { fill: var(--ground); stroke: var(--rule); }
+.arch .box.core { fill: var(--mist); stroke: var(--aqua); }
+.arch .t { fill: var(--ink); font-size: 14px; font-weight: 600; }
+.arch .s { fill: var(--ink-2); font-size: 12px; }
+.arch .m { fill: var(--ink-3); font-size: 11px; font-family: var(--mono); }
+.arch .ln { stroke: var(--ink-3); stroke-width: 1.4; fill: none; }
+.stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.stack span { font-family: var(--mono); font-size: 13px; border: 1px solid var(--rule); border-radius: 8px; padding: 5px 10px; color: var(--ink-2); background: var(--surface); }
+
+.numbers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 40px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.numbers div { padding: 22px 0; }
+.numbers div + div { border-left: 1px solid var(--rule); padding-left: 24px; }
+.numbers b { font-family: var(--display); font-size: 44px; font-weight: 700; letter-spacing: -0.03em; display: block; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.numbers span { font-size: 14px; color: var(--ink-2); }
+
+.end { padding-block: 64px 80px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; }
+.end h2 { font-size: clamp(28px, 3.2vw, 40px); letter-spacing: -0.03em; line-height: 1.1; }
+.end .ar-tag { font-family: var(--arabic); color: var(--brand); font-size: 22px; margin-top: 14px; direction: rtl; text-align: left; }
+.credits { font-size: 15px; color: var(--ink-2); display: grid; gap: 12px; }
+.credits div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; border-top: 1px solid var(--rule); padding-top: 12px; }
+.credits dt { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-3); padding-top: 3px; }
+.credits dd { margin: 0; color: var(--ink); }
+.disclaimer { font-size: 13px; color: var(--ink-3); margin-top: 26px; max-width: 70ch; }
+
+@media (max-width: 920px) {
+  .hero { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .hero h1 .ar-name { text-align: left; }
+  .sec { grid-template-columns: minmax(0, 1fr); gap: 16px; padding-block: 56px; }
+  .clock b { display: inline; font-size: 22px; margin-right: 10px; }
+  .inputs, .problem, .thumbs { grid-template-columns: minmax(0, 1fr); }
+  .problem div, .problem div + div { border-right: 0; padding: 18px 0 0; }
+  .split, .end { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .scale { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .scale div + div { border-left: 0; }
+  .numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .numbers div + div { border-left: 0; padding-left: 0; }
+  .top nav { display: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .result > * { animation: rise 0.35s ease both; }
+  .result > *:nth-child(2) { animation-delay: 0.04s; } .result > *:nth-child(3) { animation-delay: 0.08s; }
+  @keyframes rise { from { transform: translateY(6px); opacity: 0.4; } to { transform: none; opacity: 1; } }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <div class="mark">
+      <svg viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M46 52H24a12 12 0 0 0 0 24h22v22a12 12 0 0 0 24 0V76" stroke="#88CCD2" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M46 52V26a12 12 0 0 1 24 0v26h22a12 12 0 0 1 0 24H70" stroke="#1290B2" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 34c0 14 8 22 18 22s16-6 20 2 8 14 16 14" stroke="#0B5E75" stroke-width="3.2" stroke-linecap="round"/><circle cx="30" cy="31" r="4" fill="#0B5E75"/><circle cx="88" cy="72" r="5.5" fill="#fff" stroke="#0B5E75" stroke-width="3.2"/></svg>
+      Atma'en
+    </div>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#app">The app</a>
+      <a href="#admin">Admin</a>
+      <a href="#build">Engineering</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Graduation project · Jazan University · Aug 2025 – May 2026</div>
+      <h1>Atma'en<span class="ar-name">اطمئن</span></h1>
+      <p class="lede">A smart first aid guide for the minutes between <b>a child swallowing something dangerous</b> and <b>professional help arriving.</b></p>
+      <div class="facts">
+        <span><b>3</b> ways to identify a substance</span>
+        <span><b>11</b> first aid protocols</span>
+        <span><b>997</b> one tap away</span>
+        <span><b>0</b> bars of signal needed</span>
+      </div>
+    </div>
+
+    <div class="demo-col">
+      <div class="phone" role="region" aria-label="Interactive demo of the Atma'en guidance screen">
+        <div class="screen">
+          <div class="sb"></div>
+          <div class="bar"><span class="back">→</span>ما الذي بلعه الطفل؟</div>
+          <div class="body">
+            <label class="search" for="q">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <input id="q" autocomplete="off" value="بطارية ساعة" aria-label="Substance name">
+            </label>
+            <div class="chips" id="examples"></div>
+            <div class="slabel">الأعراض</div>
+            <div class="chips" id="symptoms"></div>
+            <div class="result" id="result" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+      <p class="demo-note">Live demo. Type a household product in Arabic or English. It runs the app's offline matcher and protocols, right here in your browser.</p>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="sec" id="problem">
+    <div class="clock"><b>00:00</b>the child swallows something</div>
+    <div>
+      <h2>The first minutes are spent panicking, searching, or doing the wrong thing.</h2>
+      <p class="intro">Children under five are the group most exposed to accidental poisoning, and most cases happen at home with detergents, medicines and fuels. Parents rarely have first aid training. The common reflexes, like forcing the child to vomit or giving salt water, can make things worse.</p>
+      <div class="problem">
+        <div><b>No immediate guidance</b><p>Hotlines and manuals don't tell you what to do with <em>this</em> bottle, for <em>this</em> child, right now.</p></div>
+        <div><b>Unreliable advice</b><p>Search results contradict each other. Some home remedies are harmful.</p></div>
+        <div><b>No doctor at hand</b><p>An ambulance takes time. Families have no direct line to a medical person while they wait.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <div class="clock"><b>00:20</b>identify the substance</div>
+    <div>
+      <h2>Type it, scan it, or photograph it.</h2>
+      <p class="intro">Whatever the parent can do with shaking hands. Each route ends in the same place: a category with a vetted protocol behind it.</p>
+      <div class="inputs">
+        <div class="input-card">
+          <div class="k">Text</div>
+          <h3>Fuzzy name matching</h3>
+          <p>Arabic normalization (hamza forms, ta marbuta, the article <span class="ar">ال</span>) and brand aliases, so <span class="ar">كلوركس</span>, <span class="ar">الكلور</span> and <code>bleach</code> land on the same entry. Near ties ask the parent instead of guessing.</p>
+        </div>
+        <div class="input-card">
+          <div class="k">Barcode</div>
+          <h3>EAN-13 / UPC lookup</h3>
+          <p>Check digit validated to reject bad camera reads, UPC-A normalized to EAN-13, then matched to the product table that links each item to its active chemical.</p>
+        </div>
+        <div class="input-card">
+          <div class="k">Photo</div>
+          <h3>MobileNetV2 classifier</h3>
+          <p>Transfer-learned on product photos grouped by protocol category. Below <code>0.55</code> confidence it says so and falls back to the safe generic steps.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="clock"><b>00:40</b>steps on screen, read aloud</div>
+    <div>
+      <h2>Guidance that adapts to the child and the symptoms.</h2>
+      <p class="intro">The protocol is only the starting point. The engine raises severity when red-flag symptoms are reported, puts the 997 call first when it's critical, and reads the steps out loud so the parent can keep their hands on the child.</p>
+      <div class="scale">
+        <div class="low"><div class="lvl">Low</div><b>Toothpaste, dish soap</b><p>Rinse, small sips of water, watch for an hour.</p></div>
+        <div class="moderate"><div class="lvl">Moderate</div><b>Sanitizer, perfume</b><p>Watch for drowsiness, consult a volunteer.</p></div>
+        <div class="high"><div class="lvl">High</div><b>Bleach, kerosene, pills</b><p>Specific do-nots, call 937, volunteer now.</p></div>
+        <div class="critical"><div class="lvl">Critical</div><b>Button battery, magnets</b><p>Call 997 first. Everything else comes after.</p></div>
+      </div>
+      <div class="split" style="margin-top:44px">
+        <div class="feat">
+          <div><b>Age-aware steps</b><p>For a swallowed button battery, the honey step only appears when the child is over 12 months and has no recorded honey allergy.</p></div>
+          <div><b>Do-nots are first-class</b><p>Every protocol carries its own list of what not to do. Inducing vomiting into the lungs after kerosene is a real and avoidable harm.</p></div>
+          <div><b>Works with zero signal</b><p>Protocols, the chemical list and the library ship inside the app as a versioned bundle in SQLite. Cases opened offline sync when the connection returns.</p></div>
+        </div>
+        <img src="screenshots/m-guidance.webp" alt="Guidance screen for a swallowed button battery: critical severity, call 997 button, and numbered steps" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="app">
+    <div class="clock"><b>02:00</b>a doctor joins</div>
+    <div>
+      <h2>A network of volunteer doctors and medical students.</h2>
+      <p class="intro">One tap sends the case to verified volunteers, sorted by severity. The volunteer sees the child's age, weight, allergies and history before answering, then chats or opens a video call. Their hours are logged for service certificates.</p>
+      <div class="strip" tabindex="0" aria-label="App screens">
+        <figure><img src="screenshots/m-splash.webp" alt="Splash screen with the Atma'en logo" loading="lazy"><figcaption><b>Launch</b>The tagline from the original design</figcaption></figure>
+        <figure><img src="screenshots/m-welcome.webp" alt="Welcome screen with an emergency button that works without an account" loading="lazy"><figcaption><b>No sign-up in an emergency</b>The red button works logged out and offline</figcaption></figure>
+        <figure><img src="screenshots/m-home.webp" alt="Parent home screen with emergency card, quick dial and children" loading="lazy"><figcaption><b>Parent home</b>Quick dial, children, recent cases</figcaption></figure>
+        <figure><img src="screenshots/m-identify.webp" alt="Identify screen with live suggestions and symptom chips" loading="lazy"><figcaption><b>Identify</b>Live suggestions, barcode, photo, symptoms</figcaption></figure>
+        <figure><img src="screenshots/m-guidance2.webp" alt="Do-not list and warning signs for bleach" loading="lazy"><figcaption><b>What not to do</b>And which signs to watch for</figcaption></figure>
+        <figure><img src="screenshots/m-consult.webp" alt="Chat between a parent and a pediatrics volunteer" loading="lazy"><figcaption><b>Consultation</b>Live chat over WebSocket, video via Jitsi</figcaption></figure>
+        <figure><img src="screenshots/m-queue.webp" alt="Volunteer queue showing a critical case waiting" loading="lazy"><figcaption><b>Volunteer queue</b>Critical cases first, first to accept wins</figcaption></figure>
+        <figure><img src="screenshots/m-hours.webp" alt="Volunteer service hours summary and log" loading="lazy"><figcaption><b>Service hours</b>Totals, ratings, monthly log</figcaption></figure>
+        <figure><img src="screenshots/m-article.webp" alt="Library article about button batteries" loading="lazy"><figcaption><b>Library</b>Prevention and first aid, offline</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="admin">
+    <div class="clock"><b>after</b>learning from every case</div>
+    <div>
+      <h2>An admin dashboard that shows where families need help.</h2>
+      <p class="intro">Administrators verify volunteers, maintain the chemical database the AI matches against, monitor consultations, and export anonymized reports. Every sensitive action lands in an audit log.</p>
+      <div class="admin-hero"><img src="screenshots/a-overview.webp" alt="Admin overview with case counts, wait time, match rate, daily cases and severity breakdown" loading="lazy"></div>
+      <div class="thumbs">
+        <figure><img src="screenshots/a-chemicals.webp" alt="Chemical database table with categories and hazard levels" loading="lazy"><figcaption>Chemical database and product barcodes</figcaption></figure>
+        <figure><img src="screenshots/a-consultations.webp" alt="Consultations table with wait time, duration and rating" loading="lazy"><figcaption>Consultation monitoring, without reading the chats</figcaption></figure>
+        <figure><img src="screenshots/a-security.webp" alt="Security audit log" loading="lazy"><figcaption>Audit log of logins and changes</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="build">
+    <div class="clock"><b>stack</b>how it's built</div>
+    <div>
+      <h2>Three apps, one API, built to fail safe.</h2>
+      <p class="intro">Built with Agile sprints from the requirements, ERD and sequence diagrams in the project report. When any part is unsure, the system falls back to the cautious answer, never to an empty screen.</p>
+      <div class="arch">
+        <svg viewBox="0 0 980 330" role="img" aria-label="Architecture: Flutter mobile app and React admin talk to a FastAPI backend, which uses MySQL, the AI module and a websocket chat hub. The phone keeps an offline SQLite bundle.">
+          <rect class="box" x="10" y="30" width="230" height="120" rx="14"/>
+          <text class="t" x="30" y="62">Mobile app</text>
+          <text class="s" x="30" y="84">Flutter · Arabic, RTL</text>
+          <text class="s" x="30" y="104">Parent + volunteer roles</text>
+          <text class="s" x="30" y="124">TTS · scanner · GPS</text>
+
+          <rect class="box" x="10" y="180" width="230" height="120" rx="14"/>
+          <text class="t" x="30" y="212">Offline store</text>
+          <text class="s" x="30" y="234">SQLite on the phone</text>
+          <text class="s" x="30" y="254">Versioned protocol bundle</text>
+          <text class="s" x="30" y="274">Queued cases sync later</text>
+
+          <rect class="box core" x="360" y="30" width="260" height="270" rx="16"/>
+          <text class="t" x="382" y="62">API · FastAPI</text>
+          <text class="m" x="382" y="88">/auth  /children  /cases</text>
+          <text class="m" x="382" y="108">/ai/analyze/{text,barcode,image}</text>
+          <text class="m" x="382" y="128">/consultations  + websocket</text>
+          <text class="m" x="382" y="148">/volunteers  /education</text>
+          <text class="m" x="382" y="168">/hospitals/nearest</text>
+          <text class="m" x="382" y="188">/offline/bundle  /admin</text>
+          <text class="s" x="382" y="222">JWT roles · bcrypt</text>
+          <text class="s" x="382" y="242">Audit log · CSV without names</text>
+          <text class="s" x="382" y="262">34 automated tests</text>
+
+          <rect class="box" x="740" y="30" width="230" height="78" rx="14"/>
+          <text class="t" x="760" y="62">AI module</text>
+          <text class="s" x="760" y="84">RapidFuzz · EAN · MobileNetV2</text>
+
+          <rect class="box" x="740" y="126" width="230" height="78" rx="14"/>
+          <text class="t" x="760" y="158">Database</text>
+          <text class="s" x="760" y="180">MySQL (SQLite in dev)</text>
+
+          <rect class="box" x="740" y="222" width="230" height="78" rx="14"/>
+          <text class="t" x="760" y="254">Admin dashboard</text>
+          <text class="s" x="760" y="276">React + TypeScript</text>
+
+          <path class="ln" d="M240 90 H360"/>
+          <path class="ln" d="M125 150 V180"/>
+          <path class="ln" d="M620 69 H740"/>
+          <path class="ln" d="M620 165 H740"/>
+          <path class="ln" d="M620 261 H740"/>
+          <text class="m" x="258" y="80">HTTPS / WS</text>
+          <text class="m" x="134" y="170">bundle sync</text>
+        </svg>
+      </div>
+      <div class="stack">
+        <span>Flutter</span><span>Dart</span><span>Provider</span><span>sqflite</span><span>mobile_scanner</span><span>flutter_tts</span>
+        <span>Python</span><span>FastAPI</span><span>SQLAlchemy 2</span><span>MySQL</span><span>TensorFlow</span><span>RapidFuzz</span>
+        <span>React</span><span>TypeScript</span><span>Vite</span><span>Docker Compose</span>
+      </div>
+      <div class="numbers">
+        <div><b>36</b><span>household substances with Arabic and English aliases</span></div>
+        <div><b>12</b><span>offline library articles: ingestion, choking, burns, bleeding</span></div>
+        <div><b>3</b><span>user roles: parent, volunteer, administrator</span></div>
+        <div><b>34</b><span>API tests covering the full consultation flow</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="end">
+    <div>
+      <h2>Built so a parent never has to wonder what to do next.</h2>
+      <p class="ar-tag">اطمئن... وصلت إلى وجهتك الأولى للإسعافات الأولية</p>
+      <p class="disclaimer">Atma'en is an academic project. Its first aid content is based on public poison-centre guidance and is intended to be reviewed by licensed clinicians before any real deployment. In an emergency in Saudi Arabia, call 997.</p>
+    </div>
+    <dl class="credits">
+      <div><dt>Project</dt><dd>BSc Information Technology graduation project</dd></div>
+      <div><dt>University</dt><dd>College of Engineering and Computer Science, Jazan University</dd></div>
+      <div><dt>Supervisor</dt><dd>Dr. Ghufran Babeir</dd></div>
+      <div><dt>Team member</dt><dd>Fatima Asiri</dd></div>
+      <div><dt>Period</dt><dd>August 2025 – May 2026</dd></div>
+    </dl>
+  </footer>
+</div>
+
+<script>
+const BUNDLE={"protocols": {"corrosive": {"headline": "مادة كاوية - قد تسبب حروقاً في الفم والمريء", "severity": "high", "steps": [{"text": "اغسل فم الطفل بالماء واجعله يبصق، لا تجعله يبلع ماء المضمضة", "icon": "water"}, {"text": "إذا كان واعياً ويبلع بشكل طبيعي أعطه رشفات قليلة من الماء فقط", "icon": "cup"}, {"text": "اغسل أي جلد أو ملابس لامستها المادة بماء جارٍ لمدة 15 دقيقة", "icon": "shower"}, {"text": "اتصل بالإسعاف 997 حتى لو بدا الطفل بخير", "icon": "phone"}], "do_not": ["لا تعطِه حليباً أو عصيراً أو أي مادة لمعادلة الحمض أو القلوي"], "watch_for": ["سيلان اللعاب", "رفض البلع", "ألم في الصدر أو البطن"]}, "hydrocarbon": {"headline": "مشتقات نفطية - الخطر الأكبر وصولها للرئة", "severity": "high", "steps": [{"text": "اجعل الطفل جالساً ومنتصباً ولا تعطه أي شيء عن طريق الفم", "icon": "sit"}, {"text": "انزع الملابس الملوثة واغسل الجلد بالماء والصابون", "icon": "shower"}, {"text": "راقب تنفسه جيداً لمدة 6 ساعات على الأقل", "icon": "lungs"}, {"text": "اتصل بالإسعاف 997 فوراً إذا سعل أو اختنق أو تغير لونه", "icon": "phone"}], "do_not": ["لا تحاول إخراج المادة بالتقيؤ إطلاقاً، هذا يدخلها للرئة"], "watch_for": ["سعال مستمر", "تنفس سريع", "ازرقاق الشفاه", "حرارة"]}, "detergent_pod": {"headline": "كبسولات غسيل مركزة - أخطر من المنظفات العادية", "severity": "high", "steps": [{"text": "اغسل الفم بالماء واجعله يبصق", "icon": "water"}, {"text": "إذا وصلت للعين اغسلها بماء جارٍ 15 دقيقة", "icon": "eye"}, {"text": "راقب التنفس والقيء والنعاس", "icon": "lungs"}, {"text": "تواصل مع 937 أو استشر متطوعاً طبياً الآن، و997 إذا ظهرت أعراض", "icon": "phone"}], "do_not": [], "watch_for": ["قيء متكرر", "نعاس", "سعال أو صفير"]}, "detergent_mild": {"headline": "منظف خفيف - غالباً تسبب أعراضاً بسيطة", "severity": "low", "steps": [{"text": "امسح الفم واغسله بالماء", "icon": "water"}, {"text": "أعطِه رشفات قليلة من الماء", "icon": "cup"}, {"text": "قد يحدث غثيان أو قيء خفيف، هذا متوقع ويزول", "icon": "info"}, {"text": "استشر متطوعاً طبياً إذا استمرت الأعراض أكثر من ساعة", "icon": "chat"}], "do_not": [], "watch_for": ["قيء أكثر من مرتين", "سعال"]}, "button_battery": {"headline": "بطارية زر - حالة طارئة حتى لو لا توجد أعراض", "severity": "critical", "steps": [{"text": "توجه لأقرب طوارئ فوراً أو اتصل 997، البطارية قد تحرق المريء خلال ساعتين", "icon": "hospital"}, {"text": "لا تعطه طعاماً، ولا تجعله يتقيأ", "icon": "no-food"}, {"text": "احتفظ بعبوة البطارية أو بطارية مشابهة لمعرفة المقاس", "icon": "package"}], "do_not": [], "watch_for": ["سيلان لعاب", "رفض الأكل", "ألم في الصدر", "قيء"]}, "magnet": {"headline": "مغناطيس صغير - خطر إذا بلع أكثر من قطعة", "severity": "critical", "steps": [{"text": "توجه للطوارئ فوراً، المغناطيس قد يلتصق عبر جدار الأمعاء", "icon": "hospital"}, {"text": "لا تعطه طعاماً أو شراباً", "icon": "no-food"}, {"text": "أحضر معك قطعاً مشابهة إن وجدت", "icon": "package"}], "do_not": [], "watch_for": ["ألم في البطن", "قيء", "انتفاخ"]}, "medication": {"headline": "دواء - الخطورة تعتمد على النوع والكمية ووزن الطفل", "severity": "high", "steps": [{"text": "قدّر عدد الحبوب أو كمية الشراب الناقصة قدر الإمكان", "icon": "count"}, {"text": "اكتب وقت البلع تقريباً", "icon": "clock"}, {"text": "اتصل بـ 937 أو استشر متطوعاً طبياً الآن ومعك العبوة ووزن الطفل", "icon": "phone"}, {"text": "إذا ظهر نعاس شديد أو صعوبة تنفس اتصل 997", "icon": "phone"}], "do_not": ["لا تنتظر ظهور الأعراض، بعض الأدوية مثل الباراسيتامول والحديد تتأخر أعراضها"], "watch_for": ["نعاس", "قيء", "تعرق", "تغير ضربات القلب"]}, "pesticide": {"headline": "مبيد حشري أو قوارض - قد يكون شديد السمية", "severity": "critical", "steps": [{"text": "اتصل بالإسعاف 997 الآن", "icon": "phone"}, {"text": "انزع الملابس الملوثة واغسل الجلد بالماء والصابون مع حماية يديك", "icon": "shower"}, {"text": "انقل الطفل لمكان جيد التهوية", "icon": "wind"}, {"text": "إذا فقد الوعي ويتنفس، ضعه على جنبه (وضعية الإفاقة)", "icon": "recovery"}], "do_not": [], "watch_for": ["تعرق ولعاب زائد", "تشنجات", "ضيق تنفس", "نزيف (سم الفئران)"]}, "alcohol": {"headline": "مادة كحولية (معقم، عطر، غسول فم)", "severity": "moderate", "steps": [{"text": "امسح الفم وأبعد العبوة", "icon": "hand"}, {"text": "الأطفال الصغار معرضون لانخفاض السكر، راقب النعاس والتعرق", "icon": "eye"}, {"text": "استشر 937 أو متطوعاً طبياً خاصة إذا الكمية أكثر من رشفة", "icon": "chat"}], "do_not": [], "watch_for": ["نعاس", "ترنح", "تعرق بارد", "قيء"]}, "essential_oil": {"headline": "زيوت عطرية (كافور، أوكالبتوس، نعناع) - خطرة على الصغار", "severity": "high", "steps": [{"text": "لا تعطه شيئاً عن طريق الفم", "icon": "no-food"}, {"text": "راقب أي تشنج أو سعال", "icon": "eye"}, {"text": "اتصل بـ 937 أو 997، كمية صغيرة قد تسبب تشنجات", "icon": "phone"}], "do_not": [], "watch_for": ["تشنجات", "سعال", "نعاس"]}, "low_toxicity": {"headline": "مادة منخفضة السمية غالباً", "severity": "low", "steps": [{"text": "امسح الفم وأعطه رشفات من الماء", "icon": "water"}, {"text": "راقبه لمدة ساعة", "icon": "clock"}, {"text": "استشر متطوعاً إذا لاحظت أي شيء غير طبيعي", "icon": "chat"}], "do_not": [], "watch_for": ["قيء متكرر", "طفح جلدي"]}, "unknown": {"headline": "لم نتعرف على المادة بدقة - تعامل معها كأنها خطرة", "severity": "high", "steps": [{"text": "لا تعطه شيئاً عن طريق الفم حتى تستشير", "icon": "no-food"}, {"text": "صوّر العبوة أو اكتب اسمها كما هو مكتوب", "icon": "camera"}, {"text": "تواصل مع متطوع طبي أو 937 الآن", "icon": "chat"}, {"text": "اتصل 997 فوراً عند ظهور أي علامة خطر", "icon": "phone"}], "do_not": [], "watch_for": ["صعوبة أو تغير في التنفس", "فقدان الوعي أو صعوبة إيقاظه", "تشنجات", "حروق أو تورم في الفم أو سيلان لعاب شديد", "قيء متكرر أو قيء به دم"]}}, "first_steps": ["أبعد المادة عن الطفل وأخرج أي بقايا من فمه بإصبعك برفق", "احتفظ بالعبوة معك، ستحتاجها عند الاتصال أو في المستشفى"], "universal_do_not": ["لا تحاول إجبار الطفل على التقيؤ", "لا تعطِه ماء وملح أو فحم منشط أو أي علاج منزلي دون استشارة", "لا تنتظر ظهور الأعراض إذا كانت المادة خطرة"], "disclaimer": "هذه إرشادات إسعاف أولي مؤقتة إلى حين الوصول للمساعدة الطبية ولا تغني عن الطبيب. في حال الشك اتصل بالإسعاف 997.", "chemicals": [{"name_ar": "كلور / مبيض", "name_en": "Bleach (sodium hypochlorite)", "aliases": "كلوركس,كلوروكس,مبيض ملابس,ماء جافيل,chlorine,clorox,bleach,هايبوكلوريت", "category": "corrosive", "hazard_level": "high"}, {"name_ar": "منظف مجاري / صودا كاوية", "name_en": "Drain cleaner (sodium hydroxide)", "aliases": "فتاح مجاري,صودا كاوية,بودرة المجاري,drain opener,caustic soda,lye,هيدروكسيد الصوديوم", "category": "corrosive", "hazard_level": "critical"}, {"name_ar": "منظف أفران", "name_en": "Oven cleaner", "aliases": "منظف الفرن,سبراي الفرن,oven spray,degreaser oven", "category": "corrosive", "hazard_level": "critical"}, {"name_ar": "منظف حمامات حمضي", "name_en": "Toilet bowl cleaner (acid)", "aliases": "منظف المراحيض,منظف التواليت,ملح الليمون,هيدروكلوريك,toilet cleaner,muriatic acid,مويه نار", "category": "corrosive", "hazard_level": "high"}, {"name_ar": "منظف غسالة الصحون", "name_en": "Dishwasher detergent", "aliases": "حبوب غسالة الصحون,مسحوق غسالة الصحون,dishwasher tablet,dishwasher powder", "category": "corrosive", "hazard_level": "moderate"}, {"name_ar": "كبسولات غسيل الملابس", "name_en": "Laundry detergent pods", "aliases": "كبسولات الغسيل,بودز,حبوب الغسيل,laundry pods,liquid capsules,capsule", "category": "detergent_pod", "hazard_level": "high"}, {"name_ar": "سائل غسيل الصحون", "name_en": "Dish soap", "aliases": "صابون مواعين,سائل جلي,فيري,dish liquid,washing up liquid", "category": "detergent_mild", "hazard_level": "low"}, {"name_ar": "صابون يدين أو شامبو", "name_en": "Hand soap / shampoo", "aliases": "صابون سائل,شامبو,شاور جل,shampoo,body wash,hand wash", "category": "detergent_mild", "hazard_level": "low"}, {"name_ar": "مسحوق غسيل", "name_en": "Laundry powder", "aliases": "تايد,بودرة غسيل,مسحوق الغسيل,washing powder", "category": "detergent_mild", "hazard_level": "moderate"}, {"name_ar": "منعم ملابس", "name_en": "Fabric softener", "aliases": "منعم,معطر ملابس,softener", "category": "detergent_mild", "hazard_level": "low"}, {"name_ar": "كيروسين / جاز", "name_en": "Kerosene", "aliases": "جاز,قاز,كاز,زيت فانوس,kerosene,paraffin oil", "category": "hydrocarbon", "hazard_level": "high"}, {"name_ar": "بنزين", "name_en": "Gasoline / petrol", "aliases": "بانزين,وقود,gas,petrol,benzine", "category": "hydrocarbon", "hazard_level": "high"}, {"name_ar": "تنر / مخفف دهان", "name_en": "Paint thinner", "aliases": "تنر,ثنر,تربنتين,ترابنتين,thinner,turpentine,white spirit", "category": "hydrocarbon", "hazard_level": "high"}, {"name_ar": "زيت قناديل / سائل ولاعة", "name_en": "Lamp oil / lighter fluid", "aliases": "سائل الولاعات,زيت السراج,lighter fluid,lamp oil", "category": "hydrocarbon", "hazard_level": "high"}, {"name_ar": "ملمع أثاث", "name_en": "Furniture polish", "aliases": "ملمع خشب,بخاخ الأثاث,furniture polish,pledge", "category": "hydrocarbon", "hazard_level": "moderate"}, {"name_ar": "بطارية زر / بطارية ساعة", "name_en": "Button battery", "aliases": "بطارية ساعة,بطارية صغيرة,بطارية ريموت,بطاريه,cr2032,lr44,coin battery,button cell", "category": "button_battery", "hazard_level": "critical"}, {"name_ar": "مغناطيس صغير", "name_en": "Small magnets", "aliases": "مغناطيس,مغناطيسات,كرات مغناطيس,magnet,magnetic balls", "category": "magnet", "hazard_level": "critical"}, {"name_ar": "باراسيتامول", "name_en": "Paracetamol (acetaminophen)", "aliases": "بنادول,فيفادول,ادول,باندول,خافض حرارة,panadol,tylenol,acetaminophen,paracetamol", "category": "medication", "hazard_level": "high"}, {"name_ar": "ايبوبروفين", "name_en": "Ibuprofen", "aliases": "بروفين,نوروفين,brufen,advil,nurofen", "category": "medication", "hazard_level": "moderate"}, {"name_ar": "حبوب حديد", "name_en": "Iron supplements", "aliases": "حديد,فيروجلوبين,مكمل حديد,فيتامينات الحامل,iron,ferrous sulfate", "category": "medication", "hazard_level": "critical"}, {"name_ar": "شراب كحة أو حساسية", "name_en": "Antihistamine / cough syrup", "aliases": "شراب كحه,شراب الحساسية,مضاد هيستامين,cough syrup,antihistamine", "category": "medication", "hazard_level": "moderate"}, {"name_ar": "أدوية سكر أو ضغط", "name_en": "Diabetes / blood pressure pills", "aliases": "حبوب السكر,حبوب الضغط,ميتفورمين,أملوديبين,metformin,amlodipine", "category": "medication", "hazard_level": "critical"}, {"name_ar": "مبيد حشرات بخاخ", "name_en": "Insecticide spray", "aliases": "بف باف,رذاذ الحشرات,مبيد صراصير,مبيد,insect spray,bug spray,raid", "category": "pesticide", "hazard_level": "high"}, {"name_ar": "سم فئران", "name_en": "Rat poison", "aliases": "سم الفيران,مبيد قوارض,rat poison,rodenticide", "category": "pesticide", "hazard_level": "critical"}, {"name_ar": "مبيد زراعي", "name_en": "Organophosphate pesticide", "aliases": "مبيد مزارع,مبيد نخيل,organophosphate,malathion", "category": "pesticide", "hazard_level": "critical"}, {"name_ar": "معقم يدين", "name_en": "Hand sanitizer", "aliases": "معقم,جل معقم,ديتول جل,sanitizer,alcohol gel", "category": "alcohol", "hazard_level": "moderate"}, {"name_ar": "عطر / كولونيا", "name_en": "Perfume / cologne", "aliases": "برفان,كولونيا,بخاخ عطر,perfume,cologne,body spray", "category": "alcohol", "hazard_level": "moderate"}, {"name_ar": "غسول فم", "name_en": "Mouthwash", "aliases": "مضمضة,ليسترين,mouthwash", "category": "alcohol", "hazard_level": "moderate"}, {"name_ar": "كافور / فيكس", "name_en": "Camphor / vapor rub", "aliases": "كافور,فكس,مرهم الصدر,vicks,camphor,vapor rub", "category": "essential_oil", "hazard_level": "high"}, {"name_ar": "زيت أوكالبتوس / زيوت عطرية", "name_en": "Eucalyptus / essential oils", "aliases": "زيت الكينا,زيت النعناع,زيت عطري,eucalyptus oil,essential oil,tea tree", "category": "essential_oil", "hazard_level": "high"}, {"name_ar": "معجون أسنان", "name_en": "Toothpaste", "aliases": "معجون,toothpaste", "category": "low_toxicity", "hazard_level": "low"}, {"name_ar": "أكياس السيليكا", "name_en": "Silica gel packet", "aliases": "سيليكا,كيس الرطوبة,do not eat,silica gel", "category": "low_toxicity", "hazard_level": "low"}, {"name_ar": "ألوان شمع / طباشير", "name_en": "Crayons / chalk", "aliases": "ألوان,طباشير,crayon,chalk", "category": "low_toxicity", "hazard_level": "low"}, {"name_ar": "روج / مكياج", "name_en": "Lipstick / makeup", "aliases": "أحمر شفاه,روج,مكياج,lipstick,makeup", "category": "low_toxicity", "hazard_level": "low"}, {"name_ar": "مزيل طلاء الأظافر / أسيتون", "name_en": "Nail polish remover (acetone)", "aliases": "أسيتون,اسيتون,مزيل مناكير,acetone,nail polish remover", "category": "hydrocarbon", "hazard_level": "moderate"}, {"name_ar": "منظف زجاج", "name_en": "Glass cleaner", "aliases": "منظف المرايا,ويندكس,glass cleaner,windex", "category": "detergent_mild", "hazard_level": "low"}]};
+
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const sevLabel = { low: "بسيطة", moderate: "متوسطة", high: "خطيرة", critical: "خطيرة جداً" };
+  const order = ["low", "moderate", "high", "critical"];
+  const symptoms = { vomiting: "قيء", cough: "سعال", drowsy: "نعاس شديد", breathing: "صعوبة تنفس", seizure: "تشنجات" };
+  const weights = { vomiting: 1, cough: 2, drowsy: 2, breathing: 3, seizure: 3 };
+  const examples = ["بطارية ساعة", "كلوركس", "بنادول", "جاز", "معجون أسنان", "panadol"];
+  const picked = new Set();
+
+  function normalize(s) {
+    let t = s.toLowerCase().trim().replace(/[ً-ٰٟـ]/g, "");
+    const map = { "أ": "ا", "إ": "ا", "آ": "ا", "ى": "ي", "ة": "ه", "ؤ": "و", "ئ": "ي" };
+    t = t.replace(/[أإآىةؤئ]/g, (c) => map[c]).replace(/[^\w\s؀-ۿ]/g, " ");
+    return t.split(/\s+/).map((w) => (w.startsWith("ال") && w.length > 4 ? w.slice(2) : w)).join(" ");
+  }
+  function sim(a, b) {
+    const m = a.length, n = b.length;
+    if (!m || !n) return 0;
+    let prev = Array.from({ length: n + 1 }, (_, i) => i);
+    for (let i = 1; i <= m; i++) {
+      const cur = [i];
+      for (let j = 1; j <= n; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return 1 - prev[n] / Math.max(m, n);
+  }
+  function find(q) {
+    q = normalize(q);
+    if (q.length < 2) return null;
+    let best = null, score = 0;
+    for (const c of BUNDLE.chemicals) {
+      for (const name of [c.name_ar, c.name_en, ...c.aliases.split(",")]) {
+        const n = normalize(name);
+        if (!n) continue;
+        const s = n === q ? 1 : n.includes(q) || q.includes(n) ? 0.85 : sim(q, n);
+        if (s > score) { score = s; best = c; }
+      }
+    }
+    return score >= 0.75 ? best : null;
+  }
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+
+  function render() {
+    const chem = find($("q").value);
+    const cat = chem ? chem.category : "unknown";
+    const p = BUNDLE.protocols[cat] || BUNDLE.protocols.unknown;
+    let sev = p.severity;
+    if (chem && order.indexOf(chem.hazard_level) > order.indexOf(sev)) sev = chem.hazard_level;
+    for (const s of picked) {
+      const w = weights[s];
+      const to = w >= 3 ? "critical" : w === 2 ? "high" : "moderate";
+      if (order.indexOf(to) > order.indexOf(sev)) sev = to;
+    }
+    const icons = new Set(p.steps.map((s) => s.icon));
+    const steps = [
+      ...BUNDLE.first_steps.filter((_, i) => !(i === 1 && icons.has("package"))).map((t) => ({ text: t })),
+      ...p.steps,
+    ];
+    const urgent = sev === "critical";
+    const head = chem ? `${chem.name_ar}: ${p.headline}` : p.headline;
+    $("result").innerHTML = `
+      <div style="margin-top:14px"><span class="sev ${sev}">${sevLabel[sev]}</span></div>
+      <h4>${esc(head)}</h4>
+      ${urgent ? `<div class="call"><span style="font-size:20px">☎</span><div><b>اتصل بالإسعاف 997</b><small>ابقَ على الخط، والخطوات تحت</small></div></div>` : ""}
+      ${!chem && $("q").value.trim().length > 1 ? `<p class="nomatch">لم نتعرف على المادة، هذه خطوات آمنة عامة.</p>` : ""}
+      <div>${steps.slice(0, 5).map((s, i) => `<div class="step ${urgent && s.icon === "phone" ? "warn" : ""}"><i>${i + 1}</i><span>${esc(s.text)}</span></div>`).join("")}</div>
+      <div class="dont">${[...BUNDLE.universal_do_not.slice(0, 2), ...p.do_not].map((d) => `<div>${esc(d)}</div>`).join("")}</div>`;
+  }
+
+  $("examples").innerHTML = examples.map((e) => `<button class="chip" type="button" data-ex="${esc(e)}">${esc(e)}</button>`).join("");
+  $("symptoms").innerHTML = Object.entries(symptoms).map(([k, v]) => `<button class="chip" type="button" data-s="${k}" aria-pressed="false">${v}</button>`).join("");
+  $("examples").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-ex]");
+    if (b) { $("q").value = b.dataset.ex; render(); }
+  });
+  $("symptoms").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-s]");
+    if (!b) return;
+    const k = b.dataset.s;
+    picked.has(k) ? picked.delete(k) : picked.add(k);
+    b.classList.toggle("on", picked.has(k));
+    b.setAttribute("aria-pressed", picked.has(k));
+    render();
+  });
+  $("q").addEventListener("input", render);
+  render();
+})();
+</script>
+
+</body>
+</html>
