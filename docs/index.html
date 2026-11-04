@@ -4,69 +4,120 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F6F3EE">
+<meta name="description" content="اطمئن: دليل الإسعافات الأولية الذكي عند بلع الطفل لمادة كيميائية">
+<meta property="og:title" content="اطمئن · Atma'en">
+<meta property="og:description" content="ماذا تفعل الآن إذا بلع طفلك مادة خطرة؟ خمس أسئلة وتعرف القرار الصحيح.">
 <title>اطمئن</title>
 <link rel="icon" href="logo.svg">
+<link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL@24,400,0&display=block">
 <style>
-:root{--ink:#0D2B33;--ink2:#4A6168;--brand:#1290B2;--deep:#0B5E75;--aqua:#88CCD2;--mist:#E6F4F5;--paper:#F6F3EE;--line:#E3DED5;--red:#E2483D;--redS:#FCE9E7;--amber:#C98316;--amberS:#FDF2DF;--orange:#D9692E;--orangeS:#FBEADF;--green:#3C9A6E;--greenS:#E5F3EC}
+:root{--ink:#0D2B33;--ink2:#4A6168;--ink3:#7F9599;--brand:#1290B2;--deep:#0B5E75;--aqua:#88CCD2;--mist:#E6F4F5;--paper:#F6F3EE;--card:#fff;--line:#E3DED5;--red:#E2483D;--redS:#FCE9E7;--amber:#C98316;--amberS:#FDF2DF;--orange:#D9692E;--orangeS:#FBEADF;--green:#2F8A5F;--greenS:#E5F3EC}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;background:#dfe7e8;font-family:"IBM Plex Sans Arabic",Tahoma,sans-serif;color:var(--ink)}
-button,input,select,textarea{font:inherit;color:inherit}
-.app{max-width:440px;margin:0 auto;height:100%;background:var(--paper);position:relative;display:flex;flex-direction:column;overflow:hidden}
-@media(min-width:600px){body{padding:24px 0}.app{height:calc(100% - 48px);border-radius:28px;box-shadow:0 20px 60px rgba(13,43,51,.18)}}
-.i{font-family:"Material Symbols Rounded";font-size:22px;line-height:1;width:1em;height:1em;overflow:hidden;flex:none;display:inline-block;direction:ltr;font-feature-settings:"liga"}
-.view{flex:1;overflow-y:auto;padding:0 20px 24px}
-.bar{display:flex;align-items:center;gap:8px;padding:14px 12px 10px 16px;min-height:60px}
-.bar h1{font-size:18px;margin:0;flex:1}
-.ib{background:none;border:0;padding:8px;border-radius:12px;cursor:pointer;color:var(--ink)}
-.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px}
-.tap{cursor:pointer}
-.label{font-size:13px;font-weight:600;color:var(--ink2);margin:20px 0 10px;display:flex;justify-content:space-between;align-items:center}
-.btn{height:54px;border-radius:16px;border:0;background:var(--ink);color:#fff;font-weight:600;font-size:16px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
-.btn:disabled{opacity:.4}
-.obtn{height:50px;border-radius:16px;border:1.4px solid var(--line);background:transparent;font-weight:600;font-size:15px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
-.chip{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 13px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:14px;cursor:pointer}
+html,body{margin:0;height:100%;background:var(--paper);font-family:"IBM Plex Sans Arabic",Tahoma,sans-serif;color:var(--ink)}
+button,input,select{font:inherit;color:inherit}
+p{margin:0}
+.i{font-family:"Material Symbols Rounded";font-size:22px;line-height:1;width:1em;height:1em;overflow:hidden;display:inline-block;direction:ltr;font-feature-settings:"liga";flex:none}
+.shell{display:flex;flex-direction:column;height:100%}
+.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left)) 32px max(18px,env(safe-area-inset-right))}
+.top{display:flex;align-items:center;gap:10px;padding:14px 0;min-height:64px}
+.top h1{font-size:19px;margin:0;flex:1}
+.ib{background:none;border:0;padding:8px;border-radius:12px;cursor:pointer;display:grid;place-items:center}
+.ib:hover{background:var(--mist)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}
+.tap{cursor:pointer;transition:border-color .15s,transform .15s}.tap:hover{border-color:var(--aqua)}
+.label{font-size:13px;font-weight:600;color:var(--ink2);margin:22px 0 10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.btn{min-height:54px;border-radius:16px;border:0;background:var(--ink);color:#fff;font-weight:600;font-size:16px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 18px;text-decoration:none}
+.btn:disabled{opacity:.35;cursor:default}
+.btn.red{background:var(--red)}
+.obtn{min-height:50px;border-radius:16px;border:1.4px solid var(--line);background:var(--card);font-weight:600;font-size:15px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 16px;text-decoration:none;color:inherit}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:14.5px;cursor:pointer}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .tag{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:8px;font-weight:600;font-size:13px;white-space:nowrap}
 .tag:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .critical{color:var(--red);background:var(--redS)}.high{color:var(--orange);background:var(--orangeS)}.moderate{color:var(--amber);background:var(--amberS)}.low{color:var(--green);background:var(--greenS)}
 .field{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--ink2);margin-bottom:12px}
-.input{height:52px;border:1px solid var(--line);border-radius:14px;background:#fff;padding:0 14px;font-size:16px;outline:none;width:100%}
-.input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(18,144,178,.12)}
-.nav{display:flex;justify-content:space-around;background:#fff;border-top:1px solid #eee;padding:8px 0 calc(10px + env(safe-area-inset-bottom))}
-.nav button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:500;color:var(--ink2);cursor:pointer}
-.nav .i{padding:4px 20px;border-radius:16px;font-size:24px}
-.nav .on{color:var(--ink)}.nav .on .i{background:var(--mist)}
-.step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;gap:14px;margin-bottom:10px;align-items:flex-start;cursor:pointer;transition:border-color .2s}
+.input{height:54px;border:1px solid var(--line);border-radius:14px;background:var(--card);padding:0 14px;font-size:16px;outline:none;width:100%}
+.input:focus,.searchbox:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(18,144,178,.12)}
+.searchbox{display:flex;align-items:center;gap:10px;height:58px;border:1.5px solid var(--line);border-radius:16px;background:var(--card);padding:0 16px}
+.searchbox input{border:0;outline:0;flex:1;background:none;font-size:17px;min-width:0}
+.opt{display:flex;align-items:center;gap:14px;padding:16px;border:1.4px solid var(--line);border-radius:16px;background:var(--card);cursor:pointer;text-align:right;width:100%;margin-bottom:10px}
+.opt:hover{border-color:var(--aqua)}.opt.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.opt .ico{width:42px;height:42px;border-radius:12px;background:var(--mist);display:grid;place-items:center;color:var(--deep);flex:none}
+.opt b{display:block;font-size:15.5px}.opt small{color:var(--ink2);font-size:13px}
+.progress{display:flex;gap:6px;margin:4px 0 22px}.progress span{flex:1;height:5px;border-radius:3px;background:var(--line)}.progress span.on{background:var(--brand)}
+.q{font-size:24px;line-height:1.35;margin:0 0 6px;font-weight:700;text-wrap:balance}
+.qsub{color:var(--ink2);margin-bottom:20px;line-height:1.6}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;gap:14px;margin-bottom:10px;align-items:flex-start;cursor:pointer}
 .step .n{width:36px;height:36px;border-radius:11px;background:var(--mist);color:var(--deep);display:grid;place-items:center;flex:none}
-.step p{margin:0;font-size:15.5px;line-height:1.6}
+.step p{font-size:15.5px;line-height:1.6}
 .step.active{border:1.6px solid var(--brand)}.step.active.warn{border-color:var(--red)}
 .step.active .n{background:var(--brand);color:#fff}.step.active.warn .n{background:var(--red)}
 .step.done{background:rgba(230,244,245,.6)}.step.done .n{background:var(--green);color:#fff}.step.done p{color:var(--ink2)}
-.call{background:var(--red);color:#fff;border-radius:20px;padding:18px;display:flex;gap:14px;align-items:center;text-decoration:none;cursor:pointer;border:0;width:100%;text-align:right}
-.sheet{position:absolute;inset:0;background:rgba(13,43,51,.35);display:flex;align-items:flex-end;z-index:20}
-.sheet>div{background:var(--paper);width:100%;border-radius:24px 24px 0 0;padding:20px 20px calc(24px + env(safe-area-inset-bottom));max-height:85%;overflow:auto}
-.toast{position:absolute;bottom:90px;left:20px;right:20px;background:var(--ink);color:#fff;padding:12px 16px;border-radius:14px;font-size:14px;z-index:30}
-.foot{padding:10px 20px calc(16px + env(safe-area-inset-bottom));background:var(--paper);display:flex;gap:12px}
-.splash{position:absolute;inset:0;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;z-index:50;transition:opacity .4s}
-.offline{background:var(--ink);color:#fff;font-size:13px;padding:8px 16px;display:flex;gap:8px;align-items:center}
-p{margin:0}
+.verdict{border-radius:24px;padding:22px;color:#fff;display:flex;flex-direction:column;gap:10px}
+.verdict .kicker{font-size:13px;font-weight:600;opacity:.85;letter-spacing:.2px}
+.verdict h2{margin:0;font-size:26px;line-height:1.3}
+.verdict p{opacity:.9;line-height:1.6}
+.v-er{background:var(--red)}.v-call{background:var(--orange)}.v-consult{background:var(--deep)}.v-home{background:var(--green)}
+.timer{font-variant-numeric:tabular-nums;font-size:34px;font-weight:700;letter-spacing:1px}
+.sheet{position:fixed;inset:0;background:rgba(13,43,51,.4);display:flex;align-items:flex-end;justify-content:center;z-index:20}
+.sheet>div{background:var(--paper);width:100%;max-width:560px;border-radius:24px 24px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom));max-height:88%;overflow:auto}
+.toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-size:14px;z-index:40;max-width:90vw}
+.offline{background:var(--ink);color:#fff;font-size:13px;padding:8px 18px;display:flex;gap:8px;align-items:center}
+.foot{position:sticky;bottom:0;padding:12px 0 calc(14px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--paper) 30%);display:flex;gap:12px}
+.splash{position:fixed;inset:0;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;z-index:50}
+.grid2{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+.hero{background:var(--ink);border-radius:26px;padding:24px;color:#fff;cursor:pointer;position:relative;overflow:hidden}
+.hero .mark{position:absolute;inset-inline-start:-40px;bottom:-60px;width:220px;opacity:.08}
+.nav{display:flex;justify-content:space-around;background:var(--card);border-top:1px solid var(--line);padding:8px 0 calc(8px + env(safe-area-inset-bottom))}
+.nav button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:500;color:var(--ink2);cursor:pointer;padding:0 6px}
+.nav .i{padding:4px 18px;border-radius:16px;font-size:24px}
+.nav .on{color:var(--ink)}.nav .on .i{background:var(--mist)}
+.side{display:none}
+.cols{display:block}
+.aside-sticky{display:block}
+.brandrow{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+
+/* laptop / desktop */
+@media (min-width:900px){
+  .shell{flex-direction:row}
+  .nav{display:none}
+  .side{display:flex;flex-direction:column;gap:4px;width:250px;flex:none;border-inline-start:1px solid var(--line);padding:26px 16px;background:var(--paper)}
+  .side .brandrow{padding:0 10px 26px}
+  .side button{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;border:0;background:none;font-size:15px;font-weight:500;color:var(--ink2);cursor:pointer;text-align:right}
+  .side button:hover{background:var(--mist);color:var(--ink)}
+  .side button.on{background:var(--ink);color:#fff}
+  .side .sos{margin-top:auto;background:var(--red);color:#fff;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:4px;cursor:pointer;border:0;text-align:right}
+  .wrap{padding-top:18px;padding-inline:40px}
+  .cols{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:start}
+  .aside-sticky{position:sticky;top:18px}
+  .q{font-size:30px}
+  .hero{padding:34px}
+  .hero h2{font-size:34px!important}
+  .verdict h2{font-size:30px}
+  .narrow{max-width:640px}
+  .toast{bottom:32px}
+  .sheet{align-items:center}.sheet>div{border-radius:24px}
+}
 </style>
 </head>
 <body>
-<div class="app" id="app"></div>
+<div class="shell" id="shell"></div>
 <script>
 const LOGO='<svg viewBox="0 0 120 120" fill="none"><path d="M46 52H24a12 12 0 0 0 0 24h22v22a12 12 0 0 0 24 0V76" stroke="#88CCD2" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M46 52V26a12 12 0 0 1 24 0v26h22a12 12 0 0 1 0 24H70" stroke="#1290B2" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 34c0 14 8 22 18 22s16-6 20 2 8 14 16 14" stroke="#0B5E75" stroke-width="3.2" stroke-linecap="round"/><circle cx="30" cy="31" r="4" fill="#0B5E75"/><circle cx="88" cy="72" r="5.5" fill="#fff" stroke="#0B5E75" stroke-width="3.2"/></svg>';
-const logo=n=>`<span style="display:inline-block;width:${n}px;height:${n}px">${LOGO}</span>`;
+const logo=n=>`<span style="display:inline-block;width:${n}px;height:${n}px;flex:none">${LOGO}</span>`;
 const ic=(n,s='')=>`<span class="i" style="${s}">${n}</span>`;
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const SEV={critical:'خطيرة جداً',high:'خطيرة',moderate:'متوسطة',low:'بسيطة'};
 const tag=s=>`<span class="tag ${s}">${SEV[s]||s}</span>`;
 const ORDER=['low','moderate','high','critical'];
 const ICON={phone:'call',hospital:'local_hospital',water:'water_drop',cup:'local_drink',shower:'shower',eye:'visibility',lungs:'air',sit:'event_seat','no-food':'no_food',package:'inventory_2',hand:'back_hand',count:'format_list_numbered',clock:'schedule',chat:'forum',camera:'photo_camera',wind:'air',recovery:'airline_seat_flat',honey:'hive',info:'info'};
-const SYM={none:['لا توجد أعراض',0],vomiting:['قيء',1],cough:['سعال أو اختناق',2],drooling:['سيلان لعاب',2],mouth_burn:['ألم في الفم',2],drowsy:['نعاس شديد',2],breathing:['صعوبة تنفس',3],seizure:['تشنجات',3],unconscious:['فاقد الوعي',3]};
+const SYM={vomiting:['قيء',1],cough:['سعال أو اختناق',2],drooling:['سيلان لعاب أو صعوبة بلع',2],mouth_burn:['ألم أو احمرار في الفم',2],drowsy:['نعاس شديد أو خمول',2],breathing:['صعوبة في التنفس',3],seizure:['تشنجات',3],unconscious:['فاقد الوعي أو صعب إيقاظه',3]};
+const AMOUNT={taste:['لعق أو تذوق فقط','قطرات أو لمسة على اللسان','water_drop',0],sip:['رشفة أو حبة واحدة','كمية صغيرة واضحة','local_drink',1],more:['أكثر من رشفة أو أكثر من حبة','عدة رشفات أو حبات','science',2],unknown:['لا أعرف','العبوة مفتوحة ولا أعرف كم نقص','help',2]};
+const WHEN={now:['الآن، أقل من 15 دقيقة',0],hour:['خلال الساعة الماضية',1],hours:['من 1 إلى 6 ساعات',2],long:['أكثر من 6 ساعات',3]};
 const CATS={ingestion:['البلع والتسمم','science'],prevention:['الوقاية','shield'],choking:['الاختناق','air'],burns:['الحروق','local_fire_department'],bleeding:['النزيف','healing'],general:['عام','favorite']};
 const HOSP=[["مستشفى الملك فهد المركزي بجازان",16.8892,42.5511],["مستشفى جازان العام",16.8995,42.566],["مستشفى الأمير محمد بن ناصر",16.9381,42.6138],["مستشفى صبيا العام",17.1522,42.6262],["مستشفى أبو عريش العام",16.9705,42.8322],["مدينة الملك فهد الطبية",24.689,46.7056],["مدينة الملك سعود الطبية",24.6234,46.7046],["مستشفى الملك خالد الجامعي",24.7175,46.622],["مستشفى الملك فيصل التخصصي",24.6714,46.6762],["مستشفى الولادة والأطفال بالرياض",24.7419,46.8026]];
 const HONEY=["إذا عمره أكثر من سنة ومضى أقل من 12 ساعة: أعطه ملعقتين صغيرتين (10 مل) من العسل كل 10 دقائق في الطريق للمستشفى، بحد أقصى 6 مرات. لا تؤخر الذهاب للمستشفى لأجل ذلك","honey"];
@@ -74,161 +125,226 @@ const HONEY=["إذا عمره أكثر من سنة ومضى أقل من 12 سا�
 let B=null;
 const store={get(k,d){try{return JSON.parse(localStorage.getItem('atmaen.'+k))??d}catch{return d}},set(k,v){try{localStorage.setItem('atmaen.'+k,JSON.stringify(v))}catch{}}};
 const S={tab:'home',stack:[],kids:store.get('kids',[]),cases:store.get('cases',[]),user:store.get('user',null)};
-const app=document.getElementById('app');
+const shell=document.getElementById('shell');
+const desktop=()=>matchMedia('(min-width:900px)').matches;
 
 function ageMonths(b){const d=new Date(b),n=new Date();let m=(n.getFullYear()-d.getFullYear())*12+n.getMonth()-d.getMonth();if(n.getDate()<d.getDate())m--;return Math.max(0,m)}
-function ageText(b){const m=ageMonths(b),y=Math.floor(m/12);if(m<12)return m+' شهر';if(y==1)return'سنة';if(y==2)return'سنتين';return y<=10?y+' سنوات':y+' سنة'}
+function ageText(m){const y=Math.floor(m/12);if(m<12)return m+' شهر';if(y==1)return'سنة';if(y==2)return'سنتين';return y<=10?y+' سنوات':y+' سنة'}
 
+// ---------- substance matching (same rules as the app's offline store) ----------
 function norm(s){let t=String(s).toLowerCase().trim().replace(/[ً-ٰٟـ]/g,'');const m={'أ':'ا','إ':'ا','آ':'ا','ى':'ي','ة':'ه','ؤ':'و','ئ':'ي'};t=t.replace(/[أإآىةؤئ]/g,c=>m[c]).replace(/[^\w\s؀-ۿ]/g,' ');return t.split(/\s+/).map(w=>w.startsWith('ال')&&w.length>4?w.slice(2):w).join(' ')}
 function sim(a,b){const m=a.length,n=b.length;if(!m||!n)return 0;let p=[...Array(n+1).keys()];for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}return 1-p[n]/Math.max(m,n)}
-function rank(q){q=norm(q);if(q.length<2)return[];const r=[];for(const c of B.chemicals){let best=0;for(const nm of [c.name_ar,c.name_en,...c.aliases.split(',')]){const n=norm(nm);if(!n)continue;const s=n===q?1:(n.startsWith(q)||n.includes(q))?.9:q.includes(n)&&n.length>2?.85:sim(q,n);if(s>best)best=s}r.push([c,best])}return r.sort((a,b)=>b[1]-a[1])}
+function rank(q){q=norm(q);if(q.length<2)return[];return B.chemicals.map(c=>{let best=0;for(const nm of [c.name_ar,c.name_en,...c.aliases.split(',')]){const n=norm(nm);if(!n)continue;const s=n===q?1:(n.startsWith(q)||n.includes(q))?.9:(q.includes(n)&&n.length>2)?.85:sim(q,n);if(s>best)best=s}return[c,best]}).sort((a,b)=>b[1]-a[1])}
 function byBarcode(code){const d=String(code).replace(/\D/g,'');const p=B.products.find(x=>x.barcode===d||x.barcode==='0'+d);return p?B.chemicals.find(c=>c.id===p.chemical_id):null}
 
-function guidance(chem,kid,symptoms){
+// ---------- triage: substance + amount + age + time + symptoms -> one decision ----------
+function triage(t){
+  const chem=t.chemId!=null?B.chemicals.find(c=>c.id===t.chemId):null;
   const cat=chem?chem.category:'unknown',p=B.protocols[cat]||B.protocols.unknown;
   let sev=p.severity;if(chem&&ORDER.indexOf(chem.hazard_level)>ORDER.indexOf(sev))sev=chem.hazard_level;
-  for(const s of symptoms){const w=(SYM[s]||[0,0])[1];const to=w>=3?'critical':w==2?'high':w==1?'moderate':'low';if(ORDER.indexOf(to)>ORDER.indexOf(sev))sev=to}
+  const symW=Math.max(0,...t.sym.map(s=>SYM[s][1])),amt=AMOUNT[t.amount][3],ageM=t.ageM;
+  let v,why;
+  if(symW>=3){v='er';sev='critical';why='ظهرت عليه علامة خطر'}
+  else if(ageM!=null&&ageM<6){v='call';why='الرضع أقل من 6 أشهر يحتاجون تقييماً طبياً مباشراً'}
+  else if(sev==='critical'){v='er';why=cat==='button_battery'||cat==='magnet'?'هذه المادة تسبب ضرراً داخلياً حتى بدون أعراض':'هذه المادة شديدة السمية للأطفال'}
+  else if(symW==2){v=sev==='low'?'call':'er';why='تظهر عليه أعراض واضحة'}
+  else if(!chem){v='call';why='لم نتعرف على المادة، نحتاج رأي مختص'}
+  else if(sev==='high'){v=amt>=2?'er':'call';why=amt>=2?'مادة خطرة وكمية غير قليلة':'مادة خطرة حتى بكمية صغيرة'}
+  else if(sev==='moderate'){v=amt>=2||(ageM!=null&&ageM<24&&amt>=1)?'call':'home';why=v==='call'?'الكمية بالنسبة لعمره تحتاج استشارة':'كمية صغيرة من مادة متوسطة'}
+  else{v=symW>=1&&amt>=2?'call':'home';why='مادة منخفضة السمية'}
+  if(v==='home'&&t.when==='long'&&symW>=1)v='call';
+  if(symW>=1&&sev==='low'&&v==='home')sev='moderate';
+  if(v==='er'&&sev!=='critical')sev=ORDER.indexOf(sev)<2?'high':sev;
+
   const icons=new Set(p.steps.map(s=>s.icon));
-  let steps=[...B.first_steps.map((t,i)=>[t,i?'package':'hand']).filter(s=>!icons.has(s[1])),...p.steps.map(s=>[s.text,s.icon])];
-  if(cat==='button_battery'&&kid&&ageMonths(kid.birth)>=12&&!/عسل|honey/i.test(kid.allergies||''))steps.splice(3,0,HONEY);
-  const urgent=sev==='critical';
-  if(urgent)steps.unshift(['اتصل بالإسعاف 997 الآن وشغّل مكبر الصوت وتابع الخطوات','phone']);
-  const head=chem?`${chem.name_ar}: ${p.headline}`:p.headline;
-  return{chem,sev,urgent,head,steps,doNot:[...B.universal_do_not,...p.do_not],watch:[...new Set([...p.watch_for,...B.red_flags.slice(0,2)])],
-    speech:(urgent?'انتبه. ':'')+head+'. '+steps.map(s=>s[0]).join('. ')}
+  let steps=[...B.first_steps.map((x,i)=>[x,i?'package':'hand']).filter(s=>!icons.has(s[1])),...p.steps.map(s=>[s.text,s.icon])];
+  if(cat==='button_battery'&&ageM!=null&&ageM>=12&&!/عسل|honey/i.test(t.allergies||''))steps.splice(2,0,HONEY);
+  if(v==='er')steps.unshift(['اتصل بالإسعاف 997 الآن وشغّل مكبر الصوت وتابع الخطوات','phone']);
+  if(v==='home')steps=steps.filter(s=>s[1]!=='phone'&&s[1]!=='hospital');
+  const head=chem?chem.name_ar:(t.q||'مادة غير معروفة');
+  return{chem,cat,sev,v,why,head,headline:p.headline,steps,doNot:[...B.universal_do_not,...p.do_not],
+    watch:[...new Set([...p.watch_for,...B.red_flags.slice(0,3)])],observe:v==='home'?(cat==='hydrocarbon'?360:60):0}
 }
-
-function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;app.appendChild(d);setTimeout(()=>d.remove(),2600)}
-function call(n){location.href='tel:'+n}
-function push(v,data){S.stack.push({v,data});render()}
-function back(){speechSynthesis?.cancel();S.stack.pop();render()}
-function saveKids(){store.set('kids',S.kids)}
-
-const tabs=[['home','home','الرئيسية'],['kids','child_care','أطفالي'],['lib','menu_book','المكتبة'],['me','person','حسابي']];
-function nav(){return`<div class="nav">${tabs.map(([k,i,l])=>`<button class="${S.tab==k?'on':''}" onclick="S.tab='${k}';render()">${ic(i)}<span>${l}</span></button>`).join('')}</div>`}
-function bar(t,extra=''){return`<div class="bar"><button class="ib" onclick="back()" aria-label="رجوع">${ic('arrow_forward')}</button><h1>${t}</h1>${extra}</div>`}
-const offline=()=>navigator.onLine?'':`<div class="offline">${ic('cloud_off','font-size:18px')}أنت غير متصل. الإرشادات تعمل بدون إنترنت.</div>`;
-
-const V={
-welcome(){return`<div class="view" style="display:flex;flex-direction:column;padding-top:20px">${logo(44)}<div style="flex:2;min-height:30px"></div>
-<h2 style="font-size:28px;line-height:1.35;margin:0">حين يبلع طفلك<br>شيئاً لا يجب بلعه</h2>
-<p style="margin-top:14px;font-size:16px;line-height:1.7;color:var(--ink2)">اكتب اسم المادة أو امسح الباركود، ونعطيك خطوات الإسعاف الأولي فوراً.</p>
-<div style="flex:3;min-height:30px"></div>
-<button class="call" onclick="push('identify')">${ic('emergency','font-size:30px')}<div style="flex:1"><b style="font-size:18px">عندي حالة الآن</b><div style="font-size:13px;opacity:.8">بدون تسجيل، يعمل بدون إنترنت</div></div>${ic('arrow_back')}</button>
-<div style="margin-top:14px"><button class="btn" onclick="push('signup')">إنشاء حساب</button></div></div>`},
-
-signup(){return`${bar('حساب جديد')}<div class="view"><p style="color:var(--ink2);line-height:1.6;margin-bottom:20px">بياناتك وبيانات أطفالك تُحفظ على جهازك فقط.</p>
-<label class="field">الاسم<input class="input" id="nm" autocomplete="name"></label>
-<label class="field">رقم الجوال (اختياري)<input class="input" id="ph" inputmode="tel" dir="ltr"></label>
-<button class="btn" onclick="const n=document.getElementById('nm').value.trim();if(n.length<2)return toast('اكتب اسمك');S.user={name:n,phone:document.getElementById('ph').value.trim()};store.set('user',S.user);S.stack=[];render()">متابعة</button></div>`},
-
-home(){const u=S.user,h=new Date().getHours();return`${offline()}<div class="view" style="padding-top:16px">
-<div style="display:flex;align-items:center;gap:12px">${logo(36)}<b style="font-size:19px">${h<12?'صباح الخير':'مساء الخير'}، ${esc(u.name.split(' ')[0])}</b></div>
-<div class="tap" onclick="push('identify')" style="background:var(--ink);border-radius:24px;padding:22px;margin-top:22px;color:#fff">
-<span style="background:var(--red);border-radius:8px;padding:3px 10px;font-size:12px;font-weight:700">طوارئ</span>
-<div style="font-size:24px;font-weight:700;margin-top:14px">طفلك بلع مادة؟</div>
-<div style="font-size:14px;opacity:.7;margin-top:4px">اكتب الاسم أو امسح الباركود</div>
-<div style="display:flex;gap:8px;margin-top:18px;align-items:center">${['keyboard','qr_code_scanner','photo_camera'].map(n=>`<span style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.12);display:grid;place-items:center;color:var(--aqua)">${ic(n,'font-size:21px')}</span>`).join('')}<span style="flex:1"></span>${ic('arrow_back')}</div></div>
-<div style="display:flex;gap:12px;margin-top:12px">${[['997','الهلال الأحمر','var(--red)'],['937','الاستشارات الطبية','var(--deep)']].map(([n,l,c])=>`<div class="panel tap" onclick="call('${n}')" style="flex:1;padding:14px;display:flex;gap:10px;align-items:center">${ic('call',`color:${c}`)}<div><b style="font-size:18px;color:${c}">${n}</b><div style="font-size:12px;color:var(--ink2)">${l}</div></div></div>`).join('')}</div>
-<div class="label">أطفالي<button class="ib" style="color:var(--brand);font-weight:600;font-size:14px" onclick="push('kidForm')">إضافة</button></div>
-${S.kids.length?`<div style="display:flex;gap:10px;overflow-x:auto">${S.kids.map((k,i)=>`<div class="panel tap" onclick="push('kidForm',${i})" style="min-width:140px;padding:14px"><b style="font-size:16px">${esc(k.name)}</b><div style="font-size:13px;color:var(--ink2);margin-top:14px">${ageText(k.birth)}${k.weight?' · '+k.weight+' كجم':''}</div></div>`).join('')}</div>`
-:`<div class="panel tap" onclick="push('kidForm')" style="display:flex;gap:12px;align-items:center">${ic('add_circle','color:var(--brand)')}<span>أضف طفلك ليحصل على إرشادات تناسب عمره</span></div>`}
-${S.cases.length?`<div class="label">آخر الحالات</div><div class="panel" style="padding:0">${S.cases.slice(0,4).map((c,i)=>`<div class="tap" onclick="push('guide',{chemId:${c.chemId??'null'},kid:${c.kid??'null'},sym:${JSON.stringify(c.sym||[]).replace(/"/g,'&quot;')}})" style="display:flex;align-items:center;padding:12px 16px;${i?'border-top:1px solid var(--line)':''}"><div style="flex:1"><div>${esc(c.name)}</div><div style="font-size:12.5px;color:var(--ink2)">${new Date(c.at).toLocaleString('ar-SA-u-nu-latn-ca-gregory',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div></div>${tag(c.sev)}</div>`).join('')}</div>`:''}
-<div class="label">للوقاية</div>
-<div class="panel tap" style="background:var(--mist);display:flex;gap:12px;align-items:center" onclick="S.tab='lib';S.libCat='prevention';render()">${ic('shield','color:var(--deep)')}<span style="line-height:1.6">معظم الحوادث تحدث من أدوية الكبار والمنظفات تحت المغسلة. افحص بيتك في 5 دقائق.</span></div>
-</div>${nav()}`},
-
-identify(d){const st=S.id||(S.id={q:'',kid:S.kids.length==1?0:null,sym:[]});const sug=st.q.trim().length>1&&!st.picked?rank(st.q).filter(r=>r[1]>=.6).slice(0,4):[];
-return`${bar('ما الذي بلعه الطفل؟')}${offline()}<div class="view">
-<div class="panel" style="background:var(--redS);display:flex;align-items:center;gap:10px;padding:12px 12px 12px 16px"><b style="flex:1;font-size:14.5px">فاقد الوعي، يتشنج أو لا يتنفس جيداً؟</b><button class="btn" style="background:var(--red);width:auto;height:44px;padding:0 16px" onclick="call('997')">${ic('call','font-size:20px')}997</button></div>
-${S.kids.length?`<div class="label">الطفل</div><div class="chips">${S.kids.map((k,i)=>`<button class="chip ${st.kid===i?'on':''}" onclick="S.id.kid=${i};render()">${esc(k.name)} · ${ageText(k.birth)}</button>`).join('')}</div>`:''}
-<div class="label">اسم المادة</div>
-<div class="input" style="display:flex;align-items:center;gap:10px;padding:0 14px">${ic('search','color:var(--ink2)')}<input id="q" value="${esc(st.q)}" placeholder="مثال: كلور، بنادول، جاز، بطارية ساعة" style="border:0;outline:0;flex:1;background:none;font-size:16px;min-width:0" oninput="S.id.q=this.value;S.id.picked=null;rerenderKeep('q')" onkeydown="if(event.key==='Enter')go()"></div>
-${sug.length?`<div class="panel" style="padding:4px 0;margin-top:8px">${sug.map(([c])=>`<div class="tap" onclick="S.id.picked=${c.id};S.id.q='${esc(c.name_ar)}';render()" style="display:flex;align-items:center;padding:9px 16px;gap:10px"><div style="flex:1"><div style="font-weight:600">${esc(c.name_ar)}</div><div dir="ltr" style="font-size:12px;color:var(--ink2);text-align:right">${esc(c.name_en)}</div></div>${tag(c.hazard_level)}</div>`).join('')}</div>`:''}
-<div style="display:flex;gap:12px;margin-top:14px">
-<div class="panel tap" style="flex:1;text-align:center" onclick="scan()">${ic('qr_code_scanner','font-size:28px;color:var(--deep)')}<div style="font-weight:600;margin-top:6px">مسح الباركود</div></div>
-<label class="panel tap" style="flex:1;text-align:center">${ic('photo_camera','font-size:28px;color:var(--deep)')}<div style="font-weight:600;margin-top:6px">تصوير العبوة</div><input type="file" accept="image/*" capture="environment" hidden onchange="photo(this)"></label></div>
-<div class="label">هل تظهر عليه أعراض؟</div>
-<div class="chips">${Object.entries(SYM).map(([k,[l]])=>`<button class="chip ${st.sym.includes(k)?'on':''}" onclick="toggleSym('${k}')">${st.sym.includes(k)?ic('check','font-size:18px'):''}${l}</button>`).join('')}</div>
-</div><div class="foot"><button class="btn" ${st.q.trim().length<2&&!st.picked?'disabled':''} onclick="go()">أعطني الخطوات</button></div>`},
-
-guide(d){const kid=d.kid!=null?S.kids[d.kid]:null;const chem=d.chemId!=null?B.chemicals.find(c=>c.id===d.chemId):null;const g=guidance(chem,kid,d.sym||[]);S.g=g;const cur=S.cur??0;
-return`${bar('خطوات الإسعاف',`<button class="ib" onclick="speak()" style="color:var(--brand)" aria-label="اقرأ">${ic(S.speaking?'stop_circle':'volume_up')}</button>`)}<div class="view">
-${!chem&&d.q?`<p style="font-size:13px;color:var(--ink2);margin-bottom:10px">لم نتعرف على "${esc(d.q)}" بدقة. هذه خطوات آمنة عامة.</p>`:''}
-<div>${tag(g.sev)}</div><h2 style="font-size:19px;line-height:1.45;margin:12px 0 18px">${esc(g.head)}</h2>
-${g.urgent?`<button class="call" onclick="call('997')">${ic('call','font-size:32px')}<div><b style="font-size:20px">اتصل بالإسعاف 997</b><div style="font-size:13px;opacity:.8">ابقَ على الخط، والخطوات تحت</div></div></button>`:''}
-<div class="label">افعل الآن <span style="font-weight:400">اضغط الخطوة عند إنهائها</span></div>
-${g.steps.map(([t,icn],i)=>`<div class="step ${i<cur?'done':i==cur?'active':''} ${icn==='phone'&&g.urgent?'warn':''}" onclick="S.cur=${i+1};render()"><span class="n">${ic(i<cur?'check':ICON[icn]||'info','font-size:19px')}</span><p>${esc(t)}</p></div>`).join('')}
-<div class="label">لا تفعل</div><div class="panel" style="background:var(--redS)">${g.doNot.map(x=>`<div style="display:flex;gap:10px;padding:4px 0">${ic('close','font-size:18px;color:var(--red);margin-top:3px')}<span style="line-height:1.55">${esc(x)}</span></div>`).join('')}</div>
-<div class="label">راقب هذه العلامات</div><div class="chips">${g.watch.map(w=>`<span class="chip">${ic('visibility','font-size:16px;color:var(--deep)')}${esc(w)}</span>`).join('')}</div>
-<p style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-top:22px">${esc(B.disclaimer)}</p></div>
-<div class="foot"><button class="obtn" onclick="hospitals()">${ic('location_on')}أقرب مستشفى</button><button class="btn" onclick="call('937')">${ic('medical_services')}استشارة 937</button></div>`},
-
-kidForm(i){const k=i!=null?S.kids[i]:{};return`${bar(i!=null?'تعديل البيانات':'إضافة طفل',i!=null?`<button class="ib" onclick="if(confirmDel()){S.kids.splice(${i},1);saveKids();back()}">${ic('delete')}</button>`:'')}<div class="view">
-<label class="field">الاسم<input class="input" id="kn" value="${esc(k.name)}"></label>
-<label class="field">تاريخ الميلاد<input class="input" id="kb" type="date" value="${k.birth||''}" max="${new Date().toISOString().slice(0,10)}"></label>
-<div style="display:flex;gap:12px"><label class="field" style="flex:1">الوزن (كجم)<input class="input" id="kw" inputmode="decimal" value="${k.weight||''}"></label><label class="field" style="flex:1">الطول (سم)<input class="input" id="kh" inputmode="numeric" value="${k.height||''}"></label></div>
-<label class="field">حساسية (إن وجدت)<input class="input" id="ka" value="${esc(k.allergies)}" placeholder="مثل: بنسلين، عسل"></label>
-<p style="font-size:12.5px;color:var(--ink2);margin-bottom:20px">الوزن مهم جداً في حالات الأدوية، حدّثه كل فترة.</p>
-<button class="btn" onclick="saveKid(${i??'null'})">حفظ</button></div>`},
-
-kids(){return`<div class="bar"><h1 style="padding-inline-start:4px">أطفالي</h1><button class="ib" onclick="push('kidForm')">${ic('add')}</button></div><div class="view">
-${S.kids.length?S.kids.map((k,i)=>`<div class="panel tap" onclick="push('kidForm',${i})" style="display:flex;gap:14px;align-items:center;margin-bottom:10px"><span style="width:48px;height:48px;border-radius:50%;background:var(--mist);display:grid;place-items:center;font-weight:700;font-size:18px;color:var(--deep)">${esc(k.name[0])}</span><div style="flex:1"><b>${esc(k.name)}</b><div style="color:var(--ink2);font-size:14px">${ageText(k.birth)}${k.weight?' · '+k.weight+' كجم':''}${k.height?' · '+k.height+' سم':''}</div>${k.allergies?`<div style="color:var(--red);font-size:13px;margin-top:4px">حساسية: ${esc(k.allergies)}</div>`:''}</div>${ic('chevron_left','color:var(--ink2)')}</div>`).join('')
-:`<p style="text-align:center;color:var(--ink2);line-height:1.7;margin-top:60px">لم تضف أي طفل بعد.<br>العمر والوزن يساعدان في تقدير الخطورة.</p><div style="margin-top:20px"><button class="btn" onclick="push('kidForm')">إضافة طفل</button></div>`}</div>${nav()}`},
-
-lib(){const items=B.library.filter(a=>!S.libCat||a.category===S.libCat);return`<div class="bar"><h1 style="padding-inline-start:4px">مكتبة الإسعافات</h1></div><div class="view">
-<p style="color:var(--ink2);font-size:13px;margin-bottom:14px">كل المحتوى محفوظ على جهازك ويعمل بدون إنترنت.</p>
-<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px"><button class="chip ${!S.libCat?'on':''}" onclick="S.libCat=null;render()">الكل</button>${Object.entries(CATS).map(([k,[l]])=>`<button class="chip ${S.libCat==k?'on':''}" style="white-space:nowrap" onclick="S.libCat='${k}';render()">${l}</button>`).join('')}</div>
-<div style="margin-top:16px">${items.map(a=>`<div class="panel tap" onclick="push('article','${a.slug}')" style="display:flex;gap:14px;align-items:center;margin-bottom:10px"><span style="width:46px;height:46px;border-radius:14px;background:var(--mist);display:grid;place-items:center;flex:none">${ic((CATS[a.category]||[0,'article'])[1],'color:var(--deep)')}</span><div><b style="font-size:15.5px">${esc(a.title_ar)}</b><div style="font-size:13px;color:var(--ink2);margin-top:2px">${esc(a.summary_ar)}</div></div></div>`).join('')}</div></div>${nav()}`},
-
-article(slug){const a=B.library.find(x=>x.slug===slug);return`${bar('')}<div class="view" style="padding:0 24px 32px">
-<div style="color:var(--brand);font-weight:600">${(CATS[a.category]||[''])[0]}</div><h2 style="font-size:26px;line-height:1.35;margin:6px 0 0">${esc(a.title_ar)}</h2>
-<p style="font-size:16px;color:var(--ink2);margin-top:10px">${esc(a.summary_ar)}</p><div style="margin-top:26px">${a.content_ar.split('\n').filter(Boolean).map((l,i)=>`<div style="display:flex;margin-bottom:18px"><b style="width:34px;color:var(--aqua);flex:none">${String(i+1).padStart(2,'0')}</b><span style="font-size:16.5px;line-height:1.7">${esc(l)}</span></div>`).join('')}</div></div>`},
-
-me(){const u=S.user;return`<div class="bar"><h1 style="padding-inline-start:4px">حسابي</h1></div><div class="view">
-<div class="panel" style="display:flex;gap:14px;align-items:center"><span style="width:56px;height:56px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700;font-size:20px">${esc(u.name[0])}</span><div style="flex:1"><b>${esc(u.name)}</b><div dir="ltr" style="color:var(--ink2);text-align:right">${esc(u.phone)}</div></div></div>
-<div class="panel" style="padding:0;margin-top:20px">
-<div style="display:flex;gap:12px;padding:14px 16px;align-items:center">${ic('cloud_done')}<div style="flex:1">النسخة المحفوظة للعمل بدون إنترنت<div style="font-size:12.5px;color:var(--ink2)" dir="ltr">v ${B.version}</div></div></div>
-<div style="display:flex;gap:12px;padding:14px 16px;align-items:center;border-top:1px solid var(--line)">${ic('lock')}<div style="flex:1">الخصوصية<div style="font-size:12.5px;color:var(--ink2)">بياناتك وبيانات أطفالك محفوظة على جهازك فقط</div></div></div>
-<div class="tap" onclick="push('history')" style="display:flex;gap:12px;padding:14px 16px;align-items:center;border-top:1px solid var(--line)">${ic('history')}<div style="flex:1">سجل الحالات (${S.cases.length})</div>${ic('chevron_left')}</div></div>
-<div style="margin-top:28px"><button class="obtn" style="color:var(--red)" onclick="if(confirmDel('سيتم حذف بياناتك من هذا الجهاز')){localStorage.clear();location.reload()}">تسجيل الخروج</button></div></div>${nav()}`},
-
-history(){return`${bar('سجل الحالات')}<div class="view">${S.cases.length?S.cases.map(c=>`<div class="panel" style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="flex:1"><b>${esc(c.name)}</b><div style="font-size:12.5px;color:var(--ink2)">${c.kidName?esc(c.kidName)+' · ':''}${new Date(c.at).toLocaleString('ar-SA-u-nu-latn-ca-gregory')}</div></div>${tag(c.sev)}</div>`).join(''):'<p style="color:var(--ink2);text-align:center;margin-top:40px">لا توجد حالات</p>'}</div>`},
+const VERDICT={
+  er:['اتصل بالإسعاف 997 الآن','v-er','emergency','اذهب للطوارئ أو اتصل 997 فوراً، وتابع الخطوات حتى وصول المساعدة.'],
+  call:['اتصل الآن بمختص قبل أي شيء','v-call','call','اتصل بالاستشارات الطبية 937 ومعك العبوة ووزن الطفل. وإذا ساءت حالته اتصل 997.'],
+  home:['يمكنك متابعته في المنزل','v-home','home_health','الخطورة منخفضة. اتبع الخطوات وراقبه، ويوجد مؤقت للمراقبة بالأسفل.'],
 };
 
-let delArmed=0;function confirmDel(m='اضغط مرة أخرى للتأكيد'){if(Date.now()-delArmed<3000)return true;delArmed=Date.now();toast(m+'، اضغط مرة أخرى للتأكيد');return false}
-function toggleSym(k){const s=S.id.sym;if(k==='none'){S.id.sym=s.includes('none')?[]:['none']}else{S.id.sym=s.filter(x=>x!=='none');const i=S.id.sym.indexOf(k);i<0?S.id.sym.push(k):S.id.sym.splice(i,1)}render()}
-function rerenderKeep(id){const el=document.getElementById(id),pos=el.selectionStart;render();const n=document.getElementById(id);n.focus();n.setSelectionRange(pos,pos)}
-function openCase(chem,q){const st=S.id,sym=st.sym.filter(s=>s!=='none'),kid=st.kid;const g=guidance(chem,kid!=null?S.kids[kid]:null,sym);
-  S.cases.unshift({name:chem?chem.name_ar:(q||'مادة غير معروفة'),chemId:chem?chem.id:null,kid,kidName:kid!=null?S.kids[kid].name:null,sym,sev:g.sev,at:Date.now()});S.cases=S.cases.slice(0,50);store.set('cases',S.cases);
-  S.cur=0;S.stack=S.stack.filter(x=>x.v!=='identify');S.id=null;push('guide',{chemId:chem?chem.id:null,kid,sym,q});if(g.urgent)setTimeout(speak,400)}
-function go(){const st=S.id;let chem=st.picked!=null?B.chemicals.find(c=>c.id===st.picked):null;if(!chem){const r=rank(st.q)[0];if(r&&r[1]>=.75)chem=r[0]}openCase(chem,st.q.trim())}
-async function scan(){if(!('BarcodeDetector'in window)){const c=prompt('اكتب رقم الباركود الموجود تحت الخطوط');if(c)openCase(byBarcode(c),c);return}
-  try{const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});const sh=document.createElement('div');sh.className='sheet';sh.innerHTML=`<div style="background:#000;color:#fff;text-align:center"><video playsinline autoplay muted style="width:100%;border-radius:16px"></video><p style="margin:12px 0">وجّه الكاميرا للباركود</p><button class="obtn" style="color:#fff">إلغاء</button></div>`;app.appendChild(sh);const v=sh.querySelector('video');v.srcObject=stream;const det=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','qr_code']});let stop=false;const end=()=>{stop=true;stream.getTracks().forEach(t=>t.stop());sh.remove()};sh.querySelector('button').onclick=end;
-  const loop=async()=>{if(stop)return;try{const r=await det.detect(v);if(r[0]){end();openCase(byBarcode(r[0].rawValue),r[0].rawValue);return}}catch{}requestAnimationFrame(loop)};v.onloadeddata=loop}catch{toast('لا يمكن فتح الكاميرا، اكتب اسم المادة')}}
-function photo(inp){if(!inp.files[0])return;toast('لم نتمكن من التعرف على الصورة بدقة، اكتب اسم المادة كما هو مكتوب على العبوة');document.getElementById('q')?.focus()}
-function speak(){if(!('speechSynthesis'in window))return toast('القراءة الصوتية غير مدعومة في هذا المتصفح');if(S.speaking){speechSynthesis.cancel();S.speaking=false;render();return}const u=new SpeechSynthesisUtterance(S.g.speech);u.lang='ar-SA';u.rate=.9;u.onend=()=>{S.speaking=false;render()};speechSynthesis.speak(u);S.speaking=true;render()}
-function hav(a,b,c,d){const r=x=>x*Math.PI/180,R=6371;const h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
-function hospitals(){const sh=document.createElement('div');sh.className='sheet';sh.onclick=e=>{if(e.target===sh)sh.remove()};sh.innerHTML=`<div><h2 style="font-size:19px;margin:0 0 14px">الطوارئ القريبة منك</h2><div id="hl"><p style="color:var(--ink2)">نحدد موقعك...</p></div><div style="display:flex;gap:10px;margin-top:12px"><button class="btn" style="background:var(--red)" onclick="call('997')">${ic('call')}997</button><button class="obtn" onclick="this.closest('.sheet').remove()">إغلاق</button></div></div>`;app.appendChild(sh);
-  const list=document.getElementById('hl');if(!navigator.geolocation){list.innerHTML='<p>تحديد الموقع غير مدعوم.</p>';return}
-  navigator.geolocation.getCurrentPosition(p=>{const{latitude:a,longitude:b}=p.coords;const r=HOSP.map(h=>[h,hav(a,b,h[1],h[2])]).sort((x,y)=>x[1]-y[1]).slice(0,3);
-    list.innerHTML=r.map(([h,d])=>`<a class="panel" href="https://maps.google.com/?q=${h[1]},${h[2]}" target="_blank" rel="noopener" style="display:flex;gap:12px;align-items:center;margin-bottom:8px;text-decoration:none;color:inherit">${ic('local_hospital','color:var(--deep)')}<b style="flex:1;font-weight:600">${h[0]}</b><span style="color:var(--ink2)">${d.toFixed(1)} كم</span></a>`).join('')+`<a class="obtn" style="text-decoration:none;color:inherit" href="sms:?&body=${encodeURIComponent('حالة طوارئ، موقعي: https://maps.google.com/?q='+a.toFixed(5)+','+b.toFixed(5))}">${ic('share_location')}أرسل موقعي برسالة</a>`},
-  ()=>{list.innerHTML='<p style="color:var(--ink2);line-height:1.6">لم نتمكن من تحديد موقعك. فعّل خدمة الموقع أو اتصل 997.</p>'},{enableHighAccuracy:true,timeout:8000})}
+function toast(t){document.querySelectorAll('.toast').forEach(x=>x.remove());const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2800)}
+function call(n){location.href='tel:'+n}
+function push(v,data){S.stack.push({v,data});render(true)}
+function back(){try{speechSynthesis.cancel()}catch{}S.speaking=false;S.stack.pop();render(true)}
+function go(tab){S.tab=tab;S.stack=[];render(true)}
+
+const TABS=[['home','home','الرئيسية'],['kids','child_care','أطفالي'],['lib','menu_book','المكتبة'],['history','history','السجل']];
+const nav=()=>`<div class="nav">${TABS.map(([k,i,l])=>`<button class="${S.tab==k&&!S.stack.length?'on':''}" onclick="go('${k}')">${ic(i)}<span>${l}</span></button>`).join('')}</div>`;
+const side=()=>`<aside class="side"><div class="brandrow">${logo(34)}اطمئن</div>${TABS.map(([k,i,l])=>`<button class="${S.tab==k&&!S.stack.length?'on':''}" onclick="go('${k}')">${ic(i)}${l}</button>`).join('')}
+<button class="sos" onclick="startTriage()"><b style="font-size:17px;display:flex;gap:8px;align-items:center">${ic('emergency')}عندي حالة الآن</b><span style="font-size:13px;opacity:.85">ابدأ التقييم خلال ثوانٍ</span></button>
+<p style="font-size:12px;color:var(--ink3);padding:14px 10px 0;line-height:1.6">في الحالات الحرجة اتصل 997 مباشرة</p></aside>`;
+const topbar=(t,extra='')=>`<div class="top"><button class="ib" onclick="back()" aria-label="رجوع">${ic('arrow_forward')}</button><h1>${t}</h1>${extra}</div>`;
+const offline=()=>navigator.onLine?'':`<div class="offline">${ic('cloud_off','font-size:18px')}أنت غير متصل. التطبيق يعمل بدون إنترنت.</div>`;
+
+const V={
+welcome(){return`<div class="wrap narrow" style="min-height:100%;display:flex;flex-direction:column;padding-top:26px">${logo(46)}<div style="flex:2;min-height:28px"></div>
+<h2 style="font-size:clamp(28px,5vw,44px);line-height:1.3;margin:0;text-wrap:balance">حين يبلع طفلك<br>شيئاً لا يجب بلعه</h2>
+<p style="margin-top:16px;font-size:17px;line-height:1.75;color:var(--ink2);max-width:46ch">أجب عن خمسة أسئلة سريعة، ونخبرك بالقرار الصحيح: هل تتصل بالإسعاف، أو تستشير مختصاً، أو تكفي المتابعة في المنزل. مع خطوات الإسعاف الأولي خطوة بخطوة.</p>
+<div style="flex:3;min-height:30px"></div>
+<button class="btn red" style="min-height:64px;font-size:18px" onclick="startTriage()">${ic('emergency','font-size:26px')}عندي حالة الآن</button>
+<p style="text-align:center;font-size:13px;color:var(--ink3);margin:10px 0 18px">بدون تسجيل · يعمل بدون إنترنت</p>
+<button class="obtn" onclick="push('signup')">إنشاء حساب وإضافة أطفالي</button></div>`},
+
+signup(){return`<div class="wrap narrow">${topbar('حساب جديد')}<p style="color:var(--ink2);line-height:1.6;margin-bottom:20px">بياناتك وبيانات أطفالك تُحفظ على جهازك فقط ولا تُرسل لأي جهة.</p>
+<label class="field">الاسم<input class="input" id="nm" autocomplete="name"></label>
+<label class="field">رقم الجوال (اختياري)<input class="input" id="ph" inputmode="tel" dir="ltr"></label>
+<button class="btn" onclick="const n=document.getElementById('nm').value.trim();if(n.length<2)return toast('اكتب اسمك');S.user={name:n,phone:document.getElementById('ph').value.trim()};store.set('user',S.user);S.stack=[];S.tab='kids';render(true);toast('أهلاً ${''}'+n.split(' ')[0]+'، أضف طفلك الآن')">متابعة</button></div>`},
+
+home(){const u=S.user,h=new Date().getHours(),last=S.cases.slice(0,3);return`${offline()}<div class="wrap">
+<div class="top" style="padding-top:18px">${desktop()?'':logo(34)}<h1>${h<12?'صباح الخير':'مساء الخير'}${u?'، '+esc(u.name.split(' ')[0]):''}</h1></div>
+<div class="cols"><div>
+<div class="hero" onclick="startTriage()"><span class="mark">${LOGO}</span>
+<span style="background:var(--red);border-radius:8px;padding:3px 10px;font-size:12px;font-weight:700">طوارئ</span>
+<h2 style="font-size:26px;margin:14px 0 6px">طفلك بلع مادة؟</h2>
+<p style="opacity:.75;line-height:1.6;max-width:40ch">خمسة أسئلة، ثم قرار واضح وخطوات إسعاف تُقرأ لك بصوت.</p>
+<div style="display:flex;gap:8px;margin-top:20px;align-items:center">${['keyboard','qr_code_scanner','child_care','schedule','sick'].map(n=>`<span style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.12);display:grid;place-items:center;color:var(--aqua)">${ic(n,'font-size:20px')}</span>`).join('')}<span style="flex:1"></span>${ic('arrow_back')}</div></div>
+<div class="grid2" style="margin-top:12px">${[['997','الهلال الأحمر','var(--red)'],['937','الاستشارات الطبية','var(--deep)']].map(([n,l,c])=>`<div class="panel tap" onclick="call('${n}')" style="padding:14px;display:flex;gap:10px;align-items:center">${ic('call',`color:${c}`)}<div><b style="font-size:19px;color:${c}">${n}</b><div style="font-size:12px;color:var(--ink2)">${l}</div></div></div>`).join('')}</div>
+<div class="label">أطفالي<button class="ib" style="color:var(--brand);font-weight:600;font-size:14px" onclick="push('kidForm')">إضافة</button></div>
+${S.kids.length?`<div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:4px">${S.kids.map((k,i)=>`<div class="panel tap" onclick="push('kidForm',${i})" style="min-width:150px;padding:14px"><b style="font-size:16px">${esc(k.name)}</b><div style="font-size:13px;color:var(--ink2);margin-top:14px">${ageText(ageMonths(k.birth))}${k.weight?' · '+k.weight+' كجم':''}</div></div>`).join('')}</div>`
+:`<div class="panel tap" onclick="push('kidForm')" style="display:flex;gap:12px;align-items:center">${ic('add_circle','color:var(--brand)')}<span>أضف طفلك حتى تُحسب الخطورة على عمره ووزنه</span></div>`}
+</div><div class="aside-sticky">
+${last.length?`<div class="label" style="${desktop()?'margin-top:0':''}">آخر الحالات</div><div class="panel" style="padding:0">${last.map((c,i)=>`<div class="tap" onclick="reopen(${i})" style="display:flex;align-items:center;gap:10px;padding:13px 16px;${i?'border-top:1px solid var(--line)':''}"><div style="flex:1"><div>${esc(c.name)}</div><div style="font-size:12.5px;color:var(--ink2)">${fmt(c.at)}</div></div>${tag(c.sev)}</div>`).join('')}</div>`:''}
+<div class="label" style="${desktop()&&!last.length?'margin-top:0':''}">للوقاية</div>
+<div class="panel tap" style="background:var(--mist);display:flex;gap:12px;align-items:flex-start" onclick="S.libCat='prevention';go('lib')">${ic('shield','color:var(--deep)')}<span style="line-height:1.65">معظم الحوادث تحدث من أدوية الكبار والمنظفات تحت المغسلة. افحص بيتك في 5 دقائق.</span></div>
+<div class="panel tap" style="margin-top:10px;display:flex;gap:12px;align-items:flex-start" onclick="push('article','why-not-vomit')">${ic('block','color:var(--red)')}<span style="line-height:1.65"><b>لا تجعله يتقيأ.</b> لماذا هذه العادة المنتشرة قد تزيد الضرر؟</span></div>
+</div></div></div>`},
+
+// --- triage wizard: one question per screen ---
+t1(){const t=S.t;return`<div class="wrap narrow">${topbar('',`<button class="btn red" style="width:auto;min-height:42px;font-size:15px" onclick="call('997')">${ic('call','font-size:19px')}997</button>`)}${prog(1)}
+<div class="panel" style="background:var(--redS);border-color:transparent;margin-bottom:22px;display:flex;gap:10px;align-items:center">${ic('warning','color:var(--red)')}<span style="font-size:14.5px;line-height:1.6"><b>إذا كان لا يتنفس جيداً، يتشنج أو فاقد الوعي</b> اتصل 997 الآن قبل أي شيء.</span></div>
+<p class="q">ما الذي بلعه الطفل؟</p><p class="qsub">اكتب الاسم كما تعرفه أو كما هو مكتوب على العبوة، بالعربي أو الإنجليزي.</p>
+<div class="searchbox">${ic('search','color:var(--ink2)')}<input id="q" value="${esc(t.q)}" placeholder="كلور، بنادول، جاز، بطارية ساعة..." autocomplete="off" oninput="S.t.q=this.value;S.t.chemId=null;keep('q')" onkeydown="if(event.key==='Enter')next1()"></div>
+<div id="sug">${sug()}</div>
+<div class="grid2" style="margin-top:14px"><button class="obtn" onclick="scan()">${ic('qr_code_scanner')}مسح الباركود</button><button class="obtn" onclick="S.t.q='';S.t.chemId=null;next1(true)">${ic('help')}لا أعرف المادة</button></div>
+<div class="foot"><button class="btn" ${t.q.trim().length<2&&t.chemId==null?'disabled':''} onclick="next1()">التالي</button></div></div>`},
+t2(){return wizard(2,'كم بلع تقريباً؟','التقدير يكفي. إذا لم تكن متأكداً اختر "لا أعرف" ونتعامل معها بحذر.','amount',Object.entries(AMOUNT).map(([k,[a,b,i]])=>[k,a,b,i]))},
+t3(){const t=S.t;return`<div class="wrap narrow">${topbar('')}${prog(3)}<p class="q">من هو الطفل؟</p><p class="qsub">العمر يغير القرار، الكمية الصغيرة على رضيع ليست مثلها على طفل في الثامنة.</p>
+${S.kids.map((k,i)=>`<button class="opt ${t.kid===i?'on':''}" onclick="pickKid(${i})"><span class="ico">${ic('child_care')}</span><span style="flex:1"><b>${esc(k.name)}</b><small>${ageText(ageMonths(k.birth))}${k.weight?' · '+k.weight+' كجم':''}</small></span>${t.kid===i?ic('check_circle','color:var(--ink)'):''}</button>`).join('')}
+${S.kids.length?'<div class="label">أو اختر عمره</div>':''}
+<div class="chips">${[['أقل من 6 أشهر',3],['6 - 12 شهر',9],['1 - 2 سنة',18],['2 - 5 سنوات',42],['5 - 12 سنة',96],['أكبر من 12',150]].map(([l,m])=>`<button class="chip ${t.kid==null&&t.ageM===m?'on':''}" onclick="S.t.kid=null;S.t.ageM=${m};S.t.allergies='';render()">${l}</button>`).join('')}</div>
+<div class="foot"><button class="btn" ${t.ageM==null?'disabled':''} onclick="push('t4')">التالي</button></div></div>`},
+t4(){return wizard(4,'متى حدث ذلك؟','بعض المواد تتأخر أعراضها، والوقت يساعد في تحديد ما يجب مراقبته.','when',Object.entries(WHEN).map(([k,[a]],i)=>[k,a,'',['bolt','schedule','hourglass_top','history'][i]]))},
+t5(){const t=S.t;return`<div class="wrap narrow">${topbar('')}${prog(5)}<p class="q">هل تظهر عليه أي من هذه الأعراض الآن؟</p><p class="qsub">اختر كل ما ينطبق، أو "لا توجد أعراض".</p>
+<button class="opt ${t.sym.length===0&&t.noSym?'on':''}" onclick="S.t.sym=[];S.t.noSym=true;render()"><span class="ico" style="background:var(--greenS);color:var(--green)">${ic('sentiment_satisfied')}</span><span style="flex:1"><b>لا توجد أعراض</b><small>يتصرف بشكل طبيعي</small></span></button>
+<div class="chips">${Object.entries(SYM).map(([k,[l,w]])=>`<button class="chip ${t.sym.includes(k)?'on':''}" style="${w>=3&&!t.sym.includes(k)?'border-color:#f2b8b3':''}" onclick="togSym('${k}')">${t.sym.includes(k)?ic('check','font-size:18px'):''}${l}</button>`).join('')}</div>
+<div class="foot"><button class="btn" ${!t.sym.length&&!t.noSym?'disabled':''} onclick="finish()">اعرف ماذا أفعل</button></div></div>`},
+
+result(){const t=S.t,r=S.r=triage(t),[title,cls,icn,txt]=VERDICT[r.v],cur=S.cur??0;
+return`<div class="wrap">${topbar('النتيجة',`<button class="ib" onclick="speak()" style="color:var(--brand)" aria-label="اقرأ الخطوات">${ic(S.speaking?'stop_circle':'volume_up','font-size:26px')}</button>`)}
+<div class="cols"><div>
+<div class="verdict ${cls}"><span class="kicker">${ic(icn,'font-size:18px;vertical-align:-4px')} القرار</span><h2>${title}</h2><p>${txt}</p>
+<p style="font-size:14px;opacity:.85">السبب: ${esc(r.why)}</p>
+${r.v==='er'?`<div class="grid2" style="margin-top:6px"><button class="btn" style="background:#fff;color:var(--red)" onclick="call('997')">${ic('call')}اتصل 997</button><button class="btn" style="background:rgba(255,255,255,.16)" onclick="hospitals()">${ic('local_hospital')}أقرب طوارئ</button></div>`
+:r.v==='call'?`<div class="grid2" style="margin-top:6px"><button class="btn" style="background:#fff;color:var(--orange)" onclick="call('937')">${ic('call')}اتصل 937</button><button class="btn" style="background:rgba(255,255,255,.16)" onclick="call('997')">${ic('emergency')}997</button></div>`:''}
+</div>
+<div style="display:flex;gap:10px;align-items:center;margin:18px 0 4px">${tag(r.sev)}<b style="font-size:16px">${esc(r.head)}</b></div>
+<p style="color:var(--ink2);font-size:14.5px;line-height:1.6">${esc(r.headline)}</p>
+<div class="label">افعل الآن <span style="font-weight:400">اضغط الخطوة عند إنهائها</span></div>
+${r.steps.map(([x,n],i)=>`<div class="step ${i<cur?'done':i==cur?'active':''} ${n==='phone'&&r.v==='er'?'warn':''}" onclick="S.cur=${i+1};render()"><span class="n">${ic(i<cur?'check':ICON[n]||'info','font-size:19px')}</span><p>${esc(x)}</p></div>`).join('')}
+</div><div class="aside-sticky">
+${r.observe?`<div class="panel" style="text-align:center;${desktop()?'':'margin-top:18px'}"><div style="font-weight:600;color:var(--ink2);font-size:14px">مؤقت المراقبة</div><div class="timer" id="tm">${mmss(timerLeft())}</div><p style="font-size:13.5px;color:var(--ink2);line-height:1.6;margin:4px 0 12px">راقبه خلال هذه المدة. إذا ظهرت أي علامة من القائمة اتصل 937 أو 997.</p><button class="obtn" onclick="startTimer(${r.observe})">${ic(S.timerEnd?'restart_alt':'timer')}${S.timerEnd?'إعادة المؤقت':'ابدأ المراقبة'}</button></div>`:''}
+<div class="label" style="${desktop()&&!r.observe?'margin-top:0':''}">لا تفعل</div><div class="panel" style="background:var(--redS);border-color:transparent">${r.doNot.map(x=>`<div style="display:flex;gap:10px;padding:4px 0">${ic('close','font-size:18px;color:var(--red);margin-top:3px')}<span style="line-height:1.55">${esc(x)}</span></div>`).join('')}</div>
+<div class="label">علامات تستدعي الاتصال فوراً</div><div class="chips">${r.watch.map(w=>`<span class="chip" style="cursor:default">${ic('visibility','font-size:16px;color:var(--deep)')}${esc(w)}</span>`).join('')}</div>
+<div class="grid2" style="margin-top:18px"><button class="obtn" onclick="hospitals()">${ic('location_on')}أقرب مستشفى</button><button class="obtn" onclick="share()">${ic('ios_share')}مشاركة الحالة</button></div>
+<p style="font-size:12.5px;color:var(--ink3);line-height:1.6;margin-top:18px">${esc(B.disclaimer)}</p></div></div></div>`},
+
+kidForm(i){const k=i!=null?S.kids[i]:{};return`<div class="wrap narrow">${topbar(i!=null?'تعديل بيانات الطفل':'إضافة طفل',i!=null?`<button class="ib" onclick="delKid(${i})" aria-label="حذف">${ic('delete')}</button>`:'')}
+<label class="field">الاسم<input class="input" id="kn" value="${esc(k.name)}"></label>
+<label class="field">تاريخ الميلاد<input class="input" id="kb" type="date" value="${k.birth||''}" max="${new Date().toISOString().slice(0,10)}"></label>
+<div class="grid2"><label class="field">الوزن (كجم)<input class="input" id="kw" inputmode="decimal" value="${k.weight||''}"></label><label class="field">الطول (سم)<input class="input" id="kh" inputmode="numeric" value="${k.height||''}"></label></div>
+<label class="field">حساسية (إن وجدت)<input class="input" id="ka" value="${esc(k.allergies)}" placeholder="مثل: بنسلين، عسل"></label>
+<p style="font-size:13px;color:var(--ink2);margin-bottom:20px">الوزن مهم في حالات الأدوية، حدّثه كل فترة.</p>
+<button class="btn" onclick="saveKid(${i??'null'})">حفظ</button></div>`},
+
+kids(){return`<div class="wrap"><div class="top"><h1>أطفالي</h1><button class="btn" style="width:auto;min-height:42px" onclick="push('kidForm')">${ic('add')}إضافة</button></div>
+${S.kids.length?`<div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">${S.kids.map((k,i)=>`<div class="panel tap" onclick="push('kidForm',${i})" style="display:flex;gap:14px;align-items:center"><span style="width:50px;height:50px;border-radius:50%;background:var(--mist);display:grid;place-items:center;font-weight:700;font-size:19px;color:var(--deep);flex:none">${esc(k.name[0])}</span><div style="flex:1"><b>${esc(k.name)}</b><div style="color:var(--ink2);font-size:14px">${ageText(ageMonths(k.birth))}${k.weight?' · '+k.weight+' كجم':''}${k.height?' · '+k.height+' سم':''}</div>${k.allergies?`<div style="color:var(--red);font-size:13px;margin-top:4px">حساسية: ${esc(k.allergies)}</div>`:''}</div>${ic('chevron_left','color:var(--ink3)')}</div>`).join('')}</div>`
+:`<div class="panel" style="text-align:center;padding:40px 20px;max-width:520px">${ic('child_care','font-size:40px;color:var(--aqua)')}<p style="color:var(--ink2);line-height:1.7;margin:12px 0 18px">لم تضف أي طفل بعد. العمر والوزن يجعلان التقييم أدق.</p><button class="btn" onclick="push('kidForm')">إضافة طفل</button></div>`}</div>`},
+
+lib(){const items=B.library.filter(a=>!S.libCat||a.category===S.libCat);return`<div class="wrap"><div class="top"><h1>مكتبة الإسعافات</h1></div>
+<p style="color:var(--ink2);font-size:13.5px;margin-bottom:14px">كل المحتوى محفوظ على جهازك ويعمل بدون إنترنت.</p>
+<div class="chips" style="margin-bottom:16px"><button class="chip ${!S.libCat?'on':''}" onclick="S.libCat=null;render()">الكل</button>${Object.entries(CATS).map(([k,[l]])=>`<button class="chip ${S.libCat==k?'on':''}" onclick="S.libCat='${k}';render()">${l}</button>`).join('')}</div>
+<div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">${items.map(a=>`<div class="panel tap" onclick="push('article','${a.slug}')" style="display:flex;gap:14px;align-items:center"><span style="width:46px;height:46px;border-radius:14px;background:var(--mist);display:grid;place-items:center;flex:none">${ic((CATS[a.category]||[0,'article'])[1],'color:var(--deep)')}</span><div><b style="font-size:15.5px">${esc(a.title_ar)}</b><div style="font-size:13px;color:var(--ink2);margin-top:2px">${esc(a.summary_ar)}</div></div></div>`).join('')}</div></div>`},
+
+article(slug){const a=B.library.find(x=>x.slug===slug);return`<div class="wrap narrow">${topbar('')}
+<div style="color:var(--brand);font-weight:600">${(CATS[a.category]||[''])[0]}</div><h2 style="font-size:clamp(26px,4vw,34px);line-height:1.35;margin:6px 0 0">${esc(a.title_ar)}</h2>
+<p style="font-size:17px;color:var(--ink2);margin-top:10px">${esc(a.summary_ar)}</p><div style="margin-top:28px">${a.content_ar.split('\n').filter(Boolean).map((l,i)=>`<div style="display:flex;margin-bottom:20px"><b style="width:38px;color:var(--aqua);flex:none;font-size:17px">${String(i+1).padStart(2,'0')}</b><span style="font-size:17px;line-height:1.75">${esc(l)}</span></div>`).join('')}</div></div>`},
+
+history(){const u=S.user;return`<div class="wrap"><div class="top"><h1>السجل والحساب</h1></div>
+${u?`<div class="panel" style="display:flex;gap:14px;align-items:center;max-width:560px"><span style="width:52px;height:52px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700;font-size:19px">${esc(u.name[0])}</span><div style="flex:1"><b>${esc(u.name)}</b><div dir="ltr" style="color:var(--ink2);text-align:right">${esc(u.phone)}</div></div><button class="ib" onclick="logout()" aria-label="خروج">${ic('logout','color:var(--red)')}</button></div>`
+:`<button class="obtn" style="max-width:560px" onclick="push('signup')">${ic('person_add')}إنشاء حساب</button>`}
+<div class="label">الحالات السابقة (${S.cases.length})</div>
+${S.cases.length?`<div style="display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">${S.cases.map((c,i)=>`<div class="panel tap" onclick="reopen(${i})" style="display:flex;align-items:center;gap:10px"><div style="flex:1"><b>${esc(c.name)}</b><div style="font-size:12.5px;color:var(--ink2)">${c.kidName?esc(c.kidName)+' · ':''}${fmt(c.at)}</div><div style="font-size:12.5px;color:var(--ink2)">${VERDICT[c.v]?VERDICT[c.v][0]:''}</div></div>${tag(c.sev)}</div>`).join('')}</div>`
+:'<p style="color:var(--ink2)">لا توجد حالات بعد.</p>'}
+<div class="panel" style="margin-top:22px;display:flex;gap:12px;align-items:center;max-width:560px">${ic('cloud_done','color:var(--deep)')}<div style="flex:1;font-size:14px">نسخة الإرشادات المحفوظة للعمل بدون إنترنت<div dir="ltr" style="font-size:12.5px;color:var(--ink3);text-align:right">${B.version}</div></div></div></div>`},
+};
+
+function prog(n){return`<div class="progress">${[1,2,3,4,5].map(i=>`<span class="${i<=n?'on':''}"></span>`).join('')}</div>`}
+function wizard(n,q,sub,key,opts){const t=S.t;return`<div class="wrap narrow">${topbar('')}${prog(n)}<p class="q">${q}</p><p class="qsub">${sub}</p>
+${opts.map(([k,a,b,i])=>`<button class="opt ${t[key]===k?'on':''}" onclick="S.t.${key}='${k}';push('t${n+1}')"><span class="ico">${ic(i)}</span><span style="flex:1"><b>${a}</b>${b?`<small>${b}</small>`:''}</span>${ic('chevron_left','color:var(--ink3)')}</button>`).join('')}</div>`}
+function sug(){const t=S.t;if(t.chemId!=null||t.q.trim().length<2)return'';const r=rank(t.q).filter(x=>x[1]>=.6).slice(0,4);if(!r.length)return`<p style="color:var(--ink2);font-size:14px;margin-top:10px">لا نجد هذا الاسم. اضغط التالي وسنكمل بخطوات آمنة عامة.</p>`;
+  return`<div class="panel" style="padding:4px 0;margin-top:8px">${r.map(([c])=>`<div class="tap" onclick="S.t.chemId=${c.id};S.t.q='${esc(c.name_ar)}';next1()" style="display:flex;align-items:center;padding:10px 16px;gap:10px"><div style="flex:1"><div style="font-weight:600">${esc(c.name_ar)}</div><div dir="ltr" style="font-size:12px;color:var(--ink2);text-align:right">${esc(c.name_en)}</div></div>${tag(c.hazard_level)}</div>`).join('')}</div>`}
+function keep(id){const el=document.getElementById('sug');if(el)el.innerHTML=sug();const b=document.querySelector('.foot .btn');if(b)b.disabled=S.t.q.trim().length<2&&S.t.chemId==null}
+function startTriage(){S.t={q:'',chemId:null,amount:null,kid:null,ageM:null,when:null,sym:[],noSym:false,allergies:''};if(S.kids.length===1)pickKid(0,true);S.cur=0;S.timerEnd=null;push('t1');setTimeout(()=>document.getElementById('q')?.focus(),50)}
+function next1(unknown){const t=S.t;if(!unknown&&t.chemId==null){const r=rank(t.q)[0];if(r&&r[1]>=.75)t.chemId=r[0].id}push('t2')}
+function pickKid(i,silent){const k=S.kids[i];S.t.kid=i;S.t.ageM=ageMonths(k.birth);S.t.allergies=k.allergies||'';if(!silent)render()}
+function togSym(k){const s=S.t.sym,i=s.indexOf(k);i<0?s.push(k):s.splice(i,1);S.t.noSym=false;render()}
+function finish(){const t=S.t,r=triage(t);S.cases.unshift({...t,name:r.head,kidName:t.kid!=null?S.kids[t.kid]?.name:null,sev:r.sev,v:r.v,at:Date.now()});S.cases=S.cases.slice(0,50);store.set('cases',S.cases);
+  S.stack=[];S.cur=0;S.timerEnd=null;push('result');if(r.v==='er')setTimeout(speak,500)}
+function reopen(i){S.t={...S.cases[i]};S.cur=0;S.timerEnd=null;S.stack=[];push('result')}
+function fmt(t){return new Date(t).toLocaleString('ar-SA-u-nu-latn-ca-gregory',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}
+function mmss(s){s=Math.max(0,Math.round(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return(h?h+':':'')+String(m).padStart(2,'0')+':'+String(x).padStart(2,'0')}
+function timerLeft(){return S.timerEnd?(S.timerEnd-Date.now())/1000:(S.r?.observe||0)*60}
+function startTimer(min){S.timerEnd=Date.now()+min*60000;render();toast('بدأت المراقبة')}
+setInterval(()=>{const el=document.getElementById('tm');if(el&&S.timerEnd){const l=timerLeft();el.textContent=mmss(l);if(l<=0){S.timerEnd=null;toast('انتهت مدة المراقبة. إذا كان طبيعياً فالحمد لله على سلامته');render()}}},1000);
+let delArmed=0;function sure(m){if(Date.now()-delArmed<3000)return true;delArmed=Date.now();toast(m+'، اضغط مرة أخرى للتأكيد');return false}
+function delKid(i){if(sure('سيُحذف '+S.kids[i].name)){S.kids.splice(i,1);store.set('kids',S.kids);back()}}
+function logout(){if(sure('سيتم حذف بياناتك من هذا الجهاز')){['user','kids','cases'].forEach(k=>localStorage.removeItem('atmaen.'+k));location.reload()}}
 function saveKid(i){const g=id=>document.getElementById(id).value.trim();const k={name:g('kn'),birth:g('kb'),weight:parseFloat(g('kw').replace('٫','.'))||null,height:parseFloat(g('kh'))||null,allergies:g('ka')||null};
-  if(!k.name)return toast('اكتب اسم الطفل');if(!k.birth)return toast('اختر تاريخ الميلاد');if(i==null)S.kids.push(k);else S.kids[i]=k;saveKids();back();toast('تم الحفظ')}
+  if(!k.name)return toast('اكتب اسم الطفل');if(!k.birth)return toast('اختر تاريخ الميلاد');if(k.weight&&(k.weight<1||k.weight>150))return toast('الوزن غير صحيح');if(i==null)S.kids.push(k);else S.kids[i]=k;store.set('kids',S.kids);back();toast('تم الحفظ')}
+async function scan(){if(!('BarcodeDetector'in window)){const sh=sheet(`<h2 style="font-size:19px;margin:0 0 6px">رقم الباركود</h2><p style="color:var(--ink2);font-size:14px;margin-bottom:14px">اكتب الأرقام الموجودة تحت الخطوط على العبوة.</p><input class="input" id="bc" inputmode="numeric" dir="ltr"><div class="grid2" style="margin-top:12px"><button class="btn" id="bcok">بحث</button><button class="obtn" onclick="this.closest('.sheet').remove()">إلغاء</button></div>`);
+  sh.querySelector('#bcok').onclick=()=>{const c=sh.querySelector('#bc').value;sh.remove();useBarcode(c)};return}
+  try{const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});const sh=sheet(`<video playsinline autoplay muted style="width:100%;border-radius:16px;background:#000"></video><p style="margin:12px 0;text-align:center">وجّه الكاميرا للباركود</p><button class="obtn">إلغاء</button>`);const v=sh.querySelector('video');v.srcObject=stream;const det=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','qr_code']});let stop=false;const end=()=>{stop=true;stream.getTracks().forEach(t=>t.stop());sh.remove()};sh.querySelector('button').onclick=end;
+  const loop=async()=>{if(stop)return;try{const r=await det.detect(v);if(r[0]){end();useBarcode(r[0].rawValue);return}}catch{}requestAnimationFrame(loop)};v.onloadeddata=loop}catch{toast('لا يمكن فتح الكاميرا، اكتب اسم المادة')}}
+function useBarcode(c){const chem=byBarcode(c);if(!chem){toast('المنتج غير موجود في القاعدة، اكتب اسمه');return}S.t.chemId=chem.id;S.t.q=chem.name_ar;toast('تم التعرف: '+chem.name_ar);push('t2')}
+function sheet(html){const sh=document.createElement('div');sh.className='sheet';sh.onclick=e=>{if(e.target===sh)sh.remove()};sh.innerHTML=`<div>${html}</div>`;document.body.appendChild(sh);return sh}
+function speak(){if(!('speechSynthesis'in window))return toast('القراءة الصوتية غير مدعومة في هذا المتصفح');if(S.speaking){speechSynthesis.cancel();S.speaking=false;render();return}const r=S.r,ord=['أولاً','ثانياً','ثالثاً','رابعاً','خامساً','سادساً','سابعاً','ثامناً'];
+  const u=new SpeechSynthesisUtterance(VERDICT[r.v][0]+'. '+r.steps.map((s,i)=>(ord[i]||'')+'، '+s[0]).join('. '));u.lang='ar-SA';u.rate=.9;u.onend=()=>{S.speaking=false;render()};speechSynthesis.speak(u);S.speaking=true;render()}
+function hav(a,b,c,d){const r=x=>x*Math.PI/180;const h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;return 12742*Math.asin(Math.sqrt(h))}
+function hospitals(){const sh=sheet(`<h2 style="font-size:19px;margin:0 0 14px">الطوارئ القريبة منك</h2><div id="hl"><p style="color:var(--ink2)">نحدد موقعك...</p></div><div class="grid2" style="margin-top:12px"><button class="btn red" onclick="call('997')">${ic('call')}997</button><button class="obtn" onclick="this.closest('.sheet').remove()">إغلاق</button></div>`),list=sh.querySelector('#hl');
+  if(!navigator.geolocation){list.innerHTML='<p>تحديد الموقع غير مدعوم.</p>';return}
+  navigator.geolocation.getCurrentPosition(p=>{const{latitude:a,longitude:b}=p.coords;S.pos=[a,b];const r=HOSP.map(h=>[h,hav(a,b,h[1],h[2])]).sort((x,y)=>x[1]-y[1]).slice(0,3);
+    list.innerHTML=r.map(([h,d])=>`<a class="panel" href="https://www.google.com/maps/dir/?api=1&destination=${h[1]},${h[2]}" target="_blank" rel="noopener" style="display:flex;gap:12px;align-items:center;margin-bottom:8px;text-decoration:none;color:inherit">${ic('local_hospital','color:var(--deep)')}<b style="flex:1;font-weight:600">${h[0]}</b><span style="color:var(--ink2)">${d.toFixed(1)} كم</span>${ic('directions','color:var(--brand)')}</a>`).join('')+`<a class="obtn" href="sms:?&body=${encodeURIComponent('حالة طوارئ، موقعي: https://maps.google.com/?q='+a.toFixed(5)+','+b.toFixed(5))}">${ic('share_location')}أرسل موقعي برسالة</a>`},
+  ()=>{list.innerHTML='<p style="color:var(--ink2);line-height:1.6">لم نتمكن من تحديد موقعك. فعّل خدمة الموقع أو اتصل 997.</p>'},{enableHighAccuracy:true,timeout:8000})}
+async function share(){const t=S.t,r=S.r,kid=t.kid!=null?S.kids[t.kid]:null;
+  const txt=`حالة بلع مادة\nالمادة: ${r.head}\nالكمية: ${AMOUNT[t.amount][0]}\nالطفل: ${kid?kid.name+'، ':''}${ageText(t.ageM)}${kid&&kid.weight?'، '+kid.weight+' كجم':''}${kid&&kid.allergies?'، حساسية: '+kid.allergies:''}\nالوقت: ${WHEN[t.when][0]}\nالأعراض: ${t.sym.length?t.sym.map(s=>SYM[s][0]).join('، '):'لا توجد'}\nالتقييم: ${VERDICT[r.v][0]}`;
+  try{if(navigator.share)await navigator.share({text:txt});else{await navigator.clipboard.writeText(txt);toast('تم نسخ ملخص الحالة، الصقه للطبيب أو الإسعاف')}}catch{}}
 
-function render(){const top=S.stack[S.stack.length-1];let html;
-  if(!S.user&&!top)html=V.welcome();else if(top)html=V[top.v](top.data);else html=V[S.tab]();
-  const v=app.querySelector('.view'),same=app.dataset.k===(top?top.v:S.tab),sc=v?v.scrollTop:0;
-  app.innerHTML=html;app.dataset.k=top?top.v:S.tab;const nv=app.querySelector('.view');if(nv&&same)nv.scrollTop=sc}
-addEventListener('online',render);addEventListener('offline',render);
-addEventListener('popstate',()=>{if(S.stack.length){back();history.pushState(0,'')}});history.pushState(0,'');
+let lastKey='';
+function render(nav_){const t=S.stack[S.stack.length-1];const key=t?t.v:(S.user?S.tab:'welcome');
+  let body;if(!S.user&&!t)body=V.welcome();else body=t?V[t.v](t.data):V[S.tab]();
+  const main=shell.querySelector('.main'),sc=main&&!nav_&&key===lastKey?main.scrollTop:0;
+  const chrome=S.user&&!(t&&/^t\d|signup/.test(t.v));
+  shell.innerHTML=(chrome?side():'')+`<div style="flex:1;display:flex;flex-direction:column;min-width:0;height:100%"><main class="main">${body}</main>${chrome?nav():''}</div>`;
+  shell.querySelector('.main').scrollTop=sc;lastKey=key}
+addEventListener('online',()=>render());addEventListener('offline',()=>render());
+let wasDesk=desktop();addEventListener('resize',()=>{if(desktop()!==wasDesk){wasDesk=desktop();render()}});
+history.pushState(0,'');addEventListener('popstate',()=>{if(S.stack.length)back();history.pushState(0,'')});
 
-app.innerHTML=`<div class="splash" id="sp">${logo(110)}<p style="text-align:center;font-size:19px;line-height:1.7;font-weight:600;color:var(--brand)">اطمئن... وصلت إلى وجهتك الأولى<br>للإسعافات الأولية</p></div>`;
+shell.innerHTML=`<div class="splash">${logo(110)}<p style="text-align:center;font-size:19px;line-height:1.7;font-weight:600;color:var(--brand)">اطمئن... وصلت إلى وجهتك الأولى<br>للإسعافات الأولية</p></div>`;
 (async()=>{const cached=store.get('bundle',null);
   try{const r=await fetch('https://raw.githubusercontent.com/FF-019/atmaen/main/mobile/assets/offline/bundle.json',{cache:'no-cache'});if(r.ok){B=await r.json();store.set('bundle',B)}}catch{}
   if(!B)B=cached;
-  setTimeout(()=>{if(!B){app.innerHTML='<div style="padding:40px;text-align:center">تحتاج اتصالاً بالإنترنت لأول تشغيل فقط.</div>';return}render()},900)})();
+  setTimeout(()=>{if(!B){shell.innerHTML='<div style="padding:40px;text-align:center;line-height:1.8">تحتاج اتصالاً بالإنترنت لأول تشغيل فقط.<br>في الحالات الطارئة اتصل 997</div>';return}render(true)},900)})();
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
 </html>
