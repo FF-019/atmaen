@@ -1,0 +1,12 @@
+[
+  {"name_ar": "مستشفى الملك فهد المركزي بجازان", "name_en": "King Fahad Central Hospital - Jazan", "city": "جازان", "latitude": 16.8892, "longitude": 42.5511, "phone": null},
+  {"name_ar": "مستشفى جازان العام", "name_en": "Jazan General Hospital", "city": "جازان", "latitude": 16.8995, "longitude": 42.5660, "phone": null},
+  {"name_ar": "مستشفى الأمير محمد بن ناصر", "name_en": "Prince Mohammed bin Nasser Hospital", "city": "جازان", "latitude": 16.9381, "longitude": 42.6138, "phone": null},
+  {"name_ar": "مستشفى صبيا العام", "name_en": "Sabya General Hospital", "city": "صبيا", "latitude": 17.1522, "longitude": 42.6262, "phone": null},
+  {"name_ar": "مستشفى أبو عريش العام", "name_en": "Abu Arish General Hospital", "city": "أبو عريش", "latitude": 16.9705, "longitude": 42.8322, "phone": null},
+  {"name_ar": "مدينة الملك فهد الطبية", "name_en": "King Fahad Medical City", "city": "الرياض", "latitude": 24.6890, "longitude": 46.7056, "phone": null},
+  {"name_ar": "مدينة الملك سعود الطبية", "name_en": "King Saud Medical City", "city": "الرياض", "latitude": 24.6234, "longitude": 46.7046, "phone": null},
+  {"name_ar": "مستشفى الملك خالد الجامعي", "name_en": "King Khalid University Hospital", "city": "الرياض", "latitude": 24.7175, "longitude": 46.6220, "phone": null},
+  {"name_ar": "مستشفى الملك فيصل التخصصي", "name_en": "King Faisal Specialist Hospital", "city": "الرياض", "latitude": 24.6714, "longitude": 46.6762, "phone": null},
+  {"name_ar": "مستشفى الولادة والأطفال بالرياض", "name_en": "Maternity and Children Hospital - Riyadh", "city": "الرياض", "latitude": 24.7419, "longitude": 46.8026, "phone": null}
+]
